@@ -41,8 +41,6 @@ type Query {
     users: [User]
     product: (_id: String!): Product
     products: [Product]
-
-
 }
 type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
