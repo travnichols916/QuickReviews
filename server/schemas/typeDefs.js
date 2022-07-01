@@ -7,31 +7,52 @@ type User {
     username: String
     email: String
     password: String
-    bookCount: Int
-    savedBooks: [Book]
+    productCount: Int
+    savedProducts: [Product]
+    reviews: [Review]
   }
-  type Book {
-    bookId: String
+type Product {
+    productId: String
     title: String
     authors: [String]
     description: String
     image: String
     link: String
+    reviews: [Review]
   }
-  type Auth {
+type Review {
+    _id: ID
+    userId: 
+    reviewText: String
+    rating:
+    recommend: Bolean
+    dateCreated: 
+}
+type Auth {
     token: ID!
     user: User
-  }
+}
+
 
 
 type Query {
     me: User
+    user:(username: String!): User
+    users: [User]
+    product: (_id: String!): Product
+    products: [Product]
+
 
 }
 type Mutation {
-    login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    saveBook(bookId: ID!, image: String!, link: String!): 
+    login(email: String!, password: String!): Auth
+    saveBook(bookId: ID!, image: String!, link: String!): User
     removeBook(bookId: ID!): User
+    addReview(reviewText: String) : Review
+    updateReview(reviewId: ID!): Review
+    deleteReview(reviewid: ID!): Review
 }
 `
+
+// missing user Id in Reviews
