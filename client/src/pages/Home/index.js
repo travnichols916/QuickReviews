@@ -1,3 +1,1 @@
-const Home = require('./Home');
-
-module.exports = { Home };
+export { default } from './Home.js';
