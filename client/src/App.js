@@ -1,28 +1,29 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// import Home from './pages/Home';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <>
         <Navbar />
         <Routes>
-          {/* <Route exact path='/' component={Home} /> */}
-          {/* <Route path='/login' component={Login} /> */}
-          {/* <Route path='/profile' component={Profile} /> */}
-          {/* <Route path='/search' component={Search} /> */}
-          {/* <Route path='/product' component={Product} /> */}
-          {/* <Route path='/about' component={About} /> */}
+          {/* <Route exact path='/home' element={<Home />} /> */}
+          {/* <Route path='/login' element={<Login />} /> */}
+          {/* <Route path='/profile' element={<Profile />} /> */}
+          {/* <Route path='/search' element={<Search />} /> */}
+          {/* <Route path='/product' element={<Product />} /> */}
+          {/* <Route path='/about' element={<About />} /> */}
 
-          <Route exact path='/' component={SearchBooks} />
-          <Route exact path='/saved' component={SavedBooks} />
+          <Route exact path='/' element={<SearchBooks />} />
+          <Route exact path='/saved' element={<SavedBooks />} />
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Routes>
       </>
-    </Router>
+    </BrowserRouter>
   );
 }
 
