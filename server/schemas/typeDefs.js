@@ -25,7 +25,7 @@ type Review {
     userId: 
     reviewText: String
     rating:
-    recommend: Bolean
+    recommend: Boolean
     dateCreated: 
 }
 type Auth {
@@ -45,11 +45,13 @@ type Query {
 type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveBook(bookId: ID!, image: String!, link: String!): User
-    removeBook(bookId: ID!): User
-    addReview(reviewText: String) : Review
-    updateReview(reviewId: ID!): Review
-    deleteReview(reviewid: ID!): Review
+    
+    saveProduct(title: String!, image: String!, link: String!, description: String!): User
+    removeProduct(_id: ID!): User
+
+    addReview(_id: ID!, reviewText: String) : User
+    updateReview(_id: ID!, reviewId: ID!): User
+    deleteReview(_id: ID!, reviewid: ID!): User
 }
 `
 

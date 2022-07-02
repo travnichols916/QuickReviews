@@ -7,6 +7,12 @@ const productSchema = new Schema({
   //     type: String,
   //   },
   // ],
+
+  // Alan Did this...
+  _id: {
+    type: Schema.types.ObjectId,
+    default: ()=> new Types.ObjectId()
+  },
   description: {
     type: String,
     required: true,
@@ -26,9 +32,17 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  // Alan add this
+  reviews: [reviewSchema],
 });
-const ReviewSchema = new Schema(
+
+
+const reviewSchema = new Schema(
   {
+    _id: {
+      type: Schema.types.ObjectId,
+      default: ()=> new Types.ObjectId()
+    },
     productId: {
       type: String,
       required: true,
