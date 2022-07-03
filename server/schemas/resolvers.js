@@ -24,8 +24,8 @@ const resolvers = {
         User.findOne({ username })
           .select("-__v -password")
           .populate("reviews")
-          // Saved books
-          .populate("savedBooks")
+          // Saved Products
+          .populate("savedProducts")
       );
     },
     users: async () => {
@@ -33,12 +33,12 @@ const resolvers = {
           User.find()
             .select("-__v -password")
             .populate("reviews")
-            // Saved books
-            .populate("savedBooks")
+            // Saved Products
+            .populate("savedProducts")
         );
     },
 
-    // Book Reviews
+    // Product Reviews
     reviews: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Review.find(params).sort({ createdAt: -1 });
@@ -75,11 +75,11 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveBook: async (parent, args, context) => {
+    saveProduct: async (parent, args, context) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { books: book._id } },
+          { $push: { products: product._id } },
           { new: true }
         );
 
@@ -87,11 +87,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removeBook: async (parent, args, context) => {
+    removeProduct: async (parent, args, context) => {
       if (context.user) {
         const updateUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $pull: { books: book._id } },
+          { $pull: { products: product._id } },
           { new: true }
         );
 
@@ -103,8 +103,8 @@ const resolvers = {
     addReview: async(parent, args, context) => {
         if(context.user) {
               
-          const updateUser = await User.findByIdAndUpdate(
-               { _id: context.user._id },
+          const updateProduct = await Product.findByIdAndUpdate(
+               { _id: context.product._id },
                { $push: { reviews: review._id } },
                { new: true }
              );
@@ -131,7 +131,7 @@ const resolvers = {
     deleteReview: async(parent, args, context) => {
         if(context.user) {
               
-          const updateUser = await User.findByIdAndUpdate(
+          const updateProduct = await Product.findByIdAndUpdate(
                { _id: context.user._id },
                { $pull: { reviews: review._id } },
                { new: true }
