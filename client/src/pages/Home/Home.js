@@ -43,7 +43,7 @@ const Home = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid sx={gridSectionStyles} xs={12}
+          <Grid item sx={gridSectionStyles} xs={12}
             container
             justifyContent="center"
             alignItems="center"
@@ -54,20 +54,20 @@ const Home = () => {
             />
             <Box component="h2" sx={{position: 'absolute'}}>Quick Reviews</Box>
           </Grid>
-          <Grid sx={gridSectionStyles} xs={12} 
+          <Grid item sx={gridSectionStyles} xs={12} 
             container
             justifyContent="center"
             alignItems="center"
           >
-            <Grid sx={gridStyles} item xs={12} 
+            <Grid item sx={gridStyles} xs={12} 
               container
               justifyContent="center"
               alignItems="center"
             >
-              <Grid sx={gridStyles} item xs={12} md={8} lg={8}>
+              <Grid item sx={gridStyles} xs={12} md={8} lg={8}>
                 <Box component="h2" sx={{textAlign: 'center'}}>About</Box>
               </Grid>
-              <Grid sx={gridStyles} item xs={12} >
+              <Grid item sx={gridStyles} xs={12} >
                 <Box component="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </Box>
               </Grid>
