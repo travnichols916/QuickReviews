@@ -145,7 +145,7 @@ const resolvers = {
 };
    
   
-  
+  //;aksdfnaskdfjfnasdliansdkajsdfn 
   
   module.exports = resolvers;
   
