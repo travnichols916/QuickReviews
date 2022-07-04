@@ -22,11 +22,11 @@ type Product {
   }
 type Review {
     _id: ID
-    userId: 
+    userId: ID
     reviewText: String
-    rating:
+    rating: Float
     recommend: Boolean
-    dateCreated: 
+    dateCreated: String
 }
 type Auth {
     token: ID!
