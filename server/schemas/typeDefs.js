@@ -31,10 +31,10 @@ type User {
 #     dateCreated: String
 # }
 
-# type Auth {
-#     token: ID!
-#     user: User
-# }
+type Auth {
+    token: ID!
+    user: User
+}
 
 type Query {
      me: User
@@ -44,17 +44,17 @@ type Query {
     #  products: [Product]
 }
 
-# type Mutation {
-    #  addUser(username: String!, email: String!, password: String!): Auth
-#      login(email: String!, password: String!): Auth
+type Mutation {
+     addUser(username: String!, email: String!, password: String!): Auth
+    #  login(email: String!, password: String!): Auth
     
-#      saveProduct(title: String!, image: String!, link: String!, description: String!): User
-#      removeProduct(_id: ID!): User
+    #  saveProduct(title: String!, image: String!, link: String!, description: String!): User
+    #  removeProduct(_id: ID!): User
 
-#      addReview(_id: ID!, reviewText: String) : User
-#      updateReview(_id: ID!, reviewId: ID!): User
-#      deleteReview(_id: ID!, reviewid: ID!): User
-#  }
+    #  addReview(_id: ID!, reviewText: String) : User
+    #  updateReview(_id: ID!, reviewId: ID!): User
+    #  deleteReview(_id: ID!, reviewid: ID!): User
+ }
 `;
 
 
