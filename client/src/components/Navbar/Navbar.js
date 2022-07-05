@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import { styled  } from '@mui/material/styles';
 import { lightBlue } from '@mui/material/colors';
 import FormControl from '@mui/material/FormControl';
-import { Drawer} from '@mui/material/Drawer';
+import { Drawer } from '@mui/material/Drawer';
 import Accordion from '@mui/material/Accordion';
 import {gridSectionStyles, gridStyles, imageStyles, linkStyles, navBarBGStyles} from './NavbarStyles.js';
 import { TextField } from '@mui/material';
@@ -119,7 +119,7 @@ const AppNavbar = () => {
 
           <FormControl>
             <TextField variant='standard'
-            name='searchInput'
+            id='searchInput'
             placeholder='Search for a book'
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}></TextField>
@@ -128,6 +128,7 @@ const AppNavbar = () => {
             type='submit'
             variant='success' 
             size='sm'
+            id='searchInputBtn'
           >Search</Button>
 
 
