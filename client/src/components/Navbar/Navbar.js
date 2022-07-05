@@ -3,21 +3,26 @@ import Auth from '../../utils/auth';
 import { saveBook, searchGoogleBooks } from '../../utils/API';
 import { saveBookIds, getSavedBookIds } from '../../utils/localStorage';
 
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+import {
+  Container,
+  Link,
+  AppBar,
+  Box,
+  Toolbar,
+  Button,
+  IconButton,
+  FormControl,
+  Drawer,
+  Accordion,
+  TextField,
+  Typography
+} from '@mui/material'
+
 import { styled  } from '@mui/material/styles';
 import { lightBlue } from '@mui/material/colors';
-import FormControl from '@mui/material/FormControl';
-import { Drawer } from '@mui/material/Drawer';
-import Accordion from '@mui/material/Accordion';
+
 import {gridSectionStyles, gridStyles, imageStyles, linkStyles, navBarBGStyles} from './NavbarStyles.js';
-import { TextField } from '@mui/material';
+
 
 const BoxBackground = styled(Box)(({ theme }) => ({
   paddingTop: '2rem',

@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Product from './pages/Product';
 import Login from './pages/Login';
-import Signup from './pages/Signup'
+import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
@@ -17,7 +18,7 @@ function App() {
           <Route exact path='/' element={<Home />} />
           <Route exact path='/login' element={<Login />}/>
           <Route exact path='/signup' element={<Signup />}/>
-          {/* <Route path='/profile' element={<Profile />} /> */}
+          <Route path='/profile' element={<Profile />} />
           {/* <Route path='/search' element={<Search />} /> */}
           <Route path='/product' element={<Product />} />
           {/* <Route path='/about' element={<About />} /> */}
