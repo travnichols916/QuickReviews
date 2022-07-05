@@ -100,19 +100,22 @@ const Product = () => {
 
   const buildReviews = (reviews) => {
     return (
-      <Stack spacing={4} sx={{m: 1}}>
-        {reviews.map((review) => {
-          return(
-            <Stack spacing={0.5} sx={{borderTop: '1px solid #eee', paddingTop: '1rem'}}>
-              <Box component="span">{review.username}</Box>
-              <Box sx={{display: 'flex', alignItems: 'center'}}>
-                <Rating name="half-rating-read" value={review.rating} precision={0.5} readOnly />
-                <Box component="span" sx={{ml: 1, fontWeight: 'bold'}}>{review.title}</Box>
-              </Box>
-              <Box component="p">{review.comment}</Box>
-            </Stack>
-            )
-        })}
+      <Stack spacing={1} sx={{m: 0}}>
+        <Box component="h3">Reviews</Box>
+        <Stack spacing={4}>
+          {reviews.map((review) => {
+            return(
+              <Stack spacing={0.5} sx={{borderTop: '1px solid #eee', paddingTop: '1rem'}}>
+                <Box component="span">{review.username}</Box>
+                <Box sx={{display: 'flex', alignItems: 'center'}}>
+                  <Rating name="half-rating-read" value={review.rating} precision={0.5} readOnly />
+                  <Box component="span" sx={{ml: 1, fontWeight: 'bold'}}>{review.title}</Box>
+                </Box>
+                <Box component="p">{review.comment}</Box>
+              </Stack>
+              )
+          })}
+        </Stack>
       </Stack>
     )
   };
@@ -127,10 +130,11 @@ const Product = () => {
   const buildReviewerForm = () => {
     return (
       <Stack spacing={1}>
+        <Box component="h3">Create Review</Box>
         <Box
           component="form"
           sx={{
-            '& .MuiTextField-root': { m: 1, width: '60ch' },
+            '& .MuiTextField-root': { mt: 0.5, width: '60ch' },
             '& .MuiButton-root': { width: '15ch' }
           }}
           onSubmit={handleReviewFormSubmit}
@@ -146,7 +150,7 @@ const Product = () => {
               
               onChange={(event) => setTitleValue(event.target.value)}
             />
-            <Box sx={{m: 1, display: 'flex', alignItems: 'center'}}>
+            <Box sx={{mt: 0.5, display: 'flex', alignItems: 'center'}}>
               <Rating name="half-rating" defaultValue={reviewerStarValue} precision={0.5} 
                 getLabelText={getLabelText}
                 onChange={(event, newValue) => {
@@ -169,7 +173,7 @@ const Product = () => {
               placeholder="Comment"
               onChange={(event) => setCommentValue(event.target.value)}
             />
-            <Button sx={{m: 1}} variant="contained" type="submit">Submit</Button>
+            <Button sx={{mt: 0.5}} variant="contained" type="submit">Submit</Button>
             {submittedValue === true && (<Box component="span">Submitted</Box>)}
           </Stack>
         </Box>
@@ -234,7 +238,7 @@ const Product = () => {
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                       <TabList onChange={handleTabReviewChange} aria-label="lab API tabs example">
                         <Tab label="Reviews" value="1" />
-                        <Tab label="Write a Review" value="2" />
+                        <Tab label="Create Review" value="2" />
                       </TabList>
                     </Box>
                     <TabPanel value="1">
