@@ -196,7 +196,7 @@ const Product = () => {
             container
             alignItems="center"
           >
-            <Box component="h2" sx={{}}>Name of Product</Box>
+            <Box component="h2" sx={{m: 2}}>Name of Product</Box>
             <Grid item sx={gridStyles} xs={12} 
               container
               justifyContent="center"
