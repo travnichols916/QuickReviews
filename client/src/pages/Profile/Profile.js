@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getMe } from '../../utils/API';
 import Auth from '../../utils/auth';
+import ProfileIndivReview from '../../components/ProfileIndividualReviews/ProfileIndividualReviews';
 
 import {
     CssBaseline,
@@ -11,14 +12,14 @@ import {
     Stack,
     Tab,
     Typography,
-    Divider
+    Divider,
+    Button
   } from '@mui/material'
 
 import { styled  } from '@mui/material/styles';
 import { lightBlue } from '@mui/material/colors';
 
 import {gridSectionStyles, gridStyles, imageStyles, linkStyles} from './ProfileStyles';
-import { Button } from 'react-bootstrap';
 
   const BoxBackground = styled(Box)(({ theme }) => ({
     paddingTop: '2rem',
@@ -70,18 +71,21 @@ const Profile = () => {
                                 </Stack>
                             </Grid>
                         </Box>
-
+                    {/*My Reviews */}
                         <Box
                         item>
                             <Typography variant="h2" component="div" sx={{ flexGrow: 1 }}>My Reviews</Typography>
                         </Box>
                         <Box>
-                            {/*Individual Reviews*/}
+                            <Stack>
+                                {/*Individual Reviews*/}
+                                <ProfileIndivReview />
+                            </Stack>
                         </Box>
                         </Stack>
                     </Grid>
 
-                    {/*My Reviews */}
+
 
                 </Grid>
             </ContainerStyled>

@@ -138,18 +138,18 @@ const AppNavbar = () => {
 
 
 {/* Login/Signup Buttons or ViewProfile/Logout Buttons*/}
-      {Auth.loggedIn() ? (
+      {/*Auth.loggedIn() ? ( */}
         <>
           <Button>
-            <Link href='/login' sx={linkStyles}>
+            <Link href='/profile' sx={linkStyles}>
               View Profile
             </Link>
           </Button>
-          <Button onClick={Auth.logout}>
+          <Button onClick={Auth.logout} sx={linkStyles}>
               Logout
           </Button>        
         </>
-      ) : (
+      {/*}) : (*/}
         <>
           <Button>
             <Link href='/login'
@@ -162,7 +162,7 @@ const AppNavbar = () => {
             >Signup</Link>
           </Button>
         </>
-      )}
+      {/*})}*/}
 
 
         </Toolbar>
