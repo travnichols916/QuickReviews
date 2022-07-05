@@ -6,11 +6,11 @@ const productSchema = require('./Product');
 
 const userSchema = new Schema(
   {
-    _id:{
-      type: Number,
-      unique: true,
-      require: true
-    },
+    // _id:{
+    //   type: Number,
+    //   unique: true,
+    //   require: true
+    // },
     username: {
       type: String,
       required: true,

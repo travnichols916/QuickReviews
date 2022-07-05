@@ -11,7 +11,7 @@ const resolvers = {
           .select("-__v -password")
           .populate
           // "reviews"
-          ();
+          // ();
 
         return userData;
       }
@@ -48,7 +48,6 @@ const resolvers = {
       return Review.findOne({ _id });
     },
   },
-
 
   Mutation: {
     // Add User

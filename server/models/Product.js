@@ -1,49 +1,13 @@
 const { Schema } = require('mongoose');
 
 
-// This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedProducts` array in User.js
-const productSchema = new Schema({
-  // authors: [
-  //   {
-  //     type: String,
-  //   },
-  // ],
-
-  // Alan Did this...
-  _id: {
-    type: Schema.types.ObjectId,
-    default: ()=> new Types.ObjectId()
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  // saved product id 
-  productId: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
-  link: {
-    type: String,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  // Alan add this
-  reviews: [reviewSchema],
-});
-
-
 const reviewSchema = new Schema(
   {
-    _id: {
-      type: Schema.types.ObjectId,
-      default: ()=> new Types.ObjectId()
-    },
+    
+    // _id: {
+    //   type: Schema.types.ObjectId,
+    //   // default: ()=> new Types.ObjectId()
+    // },
     productId: {
       type: String,
       required: true,
@@ -52,10 +16,10 @@ const reviewSchema = new Schema(
       type: String,
       required: true,
     },
-    reviewId:{
+    reviewId:[{
       type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId()
-    },
+      // default: () => new Types.ObjectId()
+    }],
     reviewText:{
       type: String,
       required: true,
@@ -85,5 +49,41 @@ const reviewSchema = new Schema(
     id: false
   }
 )
+const productSchema = new Schema({
+  // authors: [
+  //   {
+  //     type: String,
+  //   },
+  // ],
+
+  // Alan Did this...
+  // _id: {
+  //   type: Schema.types.ObjectId,
+  //   // default: ()=> new Types.ObjectId()
+  // },
+  description: {
+    type: String,
+    required: true,
+  },
+  // saved product id 
+  productId: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+  },
+  link: {
+    type: String,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  // Alan add this
+  reviews: [reviewSchema],
+});
+
+
 
 module.exports = productSchema;
