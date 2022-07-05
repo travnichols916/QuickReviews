@@ -200,8 +200,8 @@ const Product = () => {
             container
             alignItems="center"
           >
-            <Box component="h2" sx={{m: 2}}>Name of Product</Box>
-            <Grid item sx={gridStyles} xs={12} 
+            <Box component="h2" sx={{m: 2, p: 2}}>Name of Product</Box>
+            <Grid item sx={{...gridStyles, p: 3}} xs={12} 
               container
               justifyContent="center"
               alignItems="center"
