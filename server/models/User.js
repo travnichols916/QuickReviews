@@ -26,6 +26,7 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
+    
     reviews: [],
     // set savedProducts to be an array of data that adheres to the productSchema
     savedProducts: [productSchema],
