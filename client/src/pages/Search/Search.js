@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 
 import {
   CssBaseline,
@@ -22,6 +23,13 @@ const BoxBackground = styled(Box)(({ theme }) => ({
   paddingTop: '2rem',
   paddingBottom: '3rem',
   background: 'rgb(240, 240, 255)'
+}));
+
+const LinkStyled = styled(Link)(({ theme }) => ({
+  color: 'unset',
+  "&:hover": {
+    color: 'unset',
+  }
 }));
 
 const ContainerStyled = styled(Container)(({ theme }) => ({
@@ -55,28 +63,24 @@ const Search = () => {
 
   const [dataReviews, setDataReviews] = React.useState([
     {
-      username: "MissingNo.",
       rating: 1,
-      title: "Lorem ipsum dolor sit amet.",
-      comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      title: "Poke MissingNo.",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
-      username: "Tom",
       rating: 4,
-      title: "Great bait.",
-      comment: "Worked as intended to lure stuff."
+      title: "Mouse Interests",
+      description: "Learn all about the interest of mice."
     },
     {
-      username: "Jerry",
       rating: 2,
-      title: "Definitely did not like product.",
-      comment: "Did not taste like cheese."
+      title: "Introduction to Cheese",
+      description: "Flavorful book of cheese."
     },
     {
-      username: "Rock",
       rating: 4.5,
-      title: "Great product.",
-      comment: "Amazingly hard cheese."
+      title: "Fascinating Geos.",
+      description: "Rocks of all kinds."
     }
   ]);
 
@@ -88,25 +92,29 @@ const Search = () => {
           {results.map((result, index) => {
             return(
               <Stack key={index} spacing={0.5} sx={resultsWrapStyles}>
-                <Grid sx={gridStyles} 
-                  container
-                  // alignItems="center"
-                >
-                  <Grid item sx={gridStyles} xs={12} sm={4} md={3} >
-                    <Box component="img" sx={imageStyles}
-                      src='https://via.placeholder.com/700x700'
-                      alt=''
-                    />
+                  <Grid sx={gridStyles} 
+                    container
+                    // alignItems="center"
+                  >
+                    <Grid item sx={gridStyles} xs={12} sm={4} md={3} >
+                      <LinkStyled to={'/product'}>
+                        <Box component="img" sx={imageStyles}
+                          src='https://via.placeholder.com/700x700'
+                          alt=''
+                        />
+                      </LinkStyled>
+                    </Grid>
+                    <Grid item sx={gridStyles} xs={12} sm={8} md={9}>
+                      <LinkStyled to={'/product'}>
+                        <Box component="span" sx={{fontSize: 'x-large', fontWeight: 'bold'}}>{result.title}</Box>
+                      </LinkStyled>
+                      <Box sx={{display: 'flex', alignItems: 'center'}}>
+                        <Rating name="half-rating-read" value={result.rating} precision={0.5} readOnly />
+                        <Box sx={{ ml: 1, alignItems: 'center' }}>{labels[result.rating]}</Box>
+                      </Box>
+                      <Box component="p">{result.description}</Box>
+                    </Grid>
                   </Grid>
-                  <Grid item sx={gridStyles} xs={12} sm={8} md={9}>
-                    <Box component="span">{result.username}</Box>
-                    <Box sx={{display: 'flex', alignItems: 'center'}}>
-                      <Rating name="half-rating-read" value={result.rating} precision={0.5} readOnly />
-                      <Box component="span" sx={{ml: 1, fontWeight: 'bold'}}>{result.title}</Box>
-                    </Box>
-                    <Box component="p">{result.comment}</Box>
-                  </Grid>
-                </Grid>
               </Stack>
               )
           })}
