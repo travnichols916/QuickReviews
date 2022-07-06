@@ -18,12 +18,13 @@ import {
   TabPanel 
 } from '@mui/lab';
 // import StarIcon from '@mui/icons-material/Star';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { styled  } from '@mui/material/styles';
-import { lightBlue } from '@mui/material/colors';
 
 import Auth from '../../utils/auth';
 
-import {gridSectionStyles, gridStyles, imageStyles} from './ProductStyles.js';
+import {gridSectionStyles, gridStyles, imageStyles, reviewWrapStyles, reviewRecStyles} from './ProductStyles.js';
 
 const BoxBackground = styled(Box)(({ theme }) => ({
   paddingTop: '2rem',
@@ -32,9 +33,6 @@ const BoxBackground = styled(Box)(({ theme }) => ({
 }));
 
 const ContainerStyled = styled(Container)(({ theme }) => ({
-  status: {
-    background: lightBlue,
-  },
 }));
 
 const labels = {
@@ -71,25 +69,29 @@ const Product = () => {
       username: "MissingNo.",
       rating: 1,
       title: "Lorem ipsum dolor sit amet.",
-      comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      recommended: false
     },
     {
       username: "Tom",
       rating: 4,
       title: "Great bait.",
-      comment: "Worked as intended to lure stuff."
+      comment: "Worked as intended to lure stuff.",
+      recommended: true
     },
     {
       username: "Jerry",
       rating: 2,
       title: "Definitely did not like product.",
-      comment: "Did not taste like cheese."
+      comment: "Did not taste like cheese.",
+      recommended: false
     },
     {
       username: "Rock",
       rating: 4.5,
       title: "Great product.",
-      comment: "Amazingly hard cheese."
+      comment: "Amazingly hard cheese.",
+      recommended: true
     }
   ]);
 
@@ -103,15 +105,22 @@ const Product = () => {
       <Stack spacing={1} sx={{m: 0}}>
         <Box component="h3">Reviews</Box>
         <Stack spacing={4}>
-          {reviews.map((review) => {
+          {reviews.map((review, index) => {
             return(
-              <Stack spacing={0.5} sx={{borderTop: '1px solid #eee', paddingTop: '1rem'}}>
+              <Stack key={index} spacing={0.5} sx={reviewWrapStyles}>
                 <Box component="span">{review.username}</Box>
                 <Box sx={{display: 'flex', alignItems: 'center'}}>
                   <Rating name="half-rating-read" value={review.rating} precision={0.5} readOnly />
                   <Box component="span" sx={{ml: 1, fontWeight: 'bold'}}>{review.title}</Box>
                 </Box>
                 <Box component="p">{review.comment}</Box>
+                { review.recommended ? 
+                  <Box>
+                    <ThumbUpIcon fontSize="small" /><Box component="span" sx={reviewRecStyles}>Recommended</Box>
+                  </Box> : 
+                  <Box>
+                    <ThumbDownIcon fontSize="small" /><Box component="span" sx={reviewRecStyles}>Not Recommended</Box>
+                  </Box>}
               </Stack>
               )
           })}
