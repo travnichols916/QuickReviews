@@ -11,10 +11,10 @@ const reviewSchema = new Schema(
       rating:{
         type: String,
         required: true,
-        minLength: 1,
+        minLength: 0,
         maxLength: 5,
       },
-    //   recommended: {},
+      recommended: {Boolean},
       createdAt: {
         type: Date,
         default: Date.now,

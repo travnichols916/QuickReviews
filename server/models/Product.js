@@ -24,7 +24,7 @@ const productSchema = new Schema(
     required: true,
   },
   // Alan add this
-  reviews: [reviewSchema],
+  reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
 });
 
 const Product = model('Product', productSchema);
