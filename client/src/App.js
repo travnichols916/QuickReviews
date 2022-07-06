@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route exact path='/saved' element={<SavedBooks />} />
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Routes>
+        <Footer />
       </>
     </BrowserRouter>
   );
