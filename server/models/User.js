@@ -1,16 +1,11 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-
 // import schema from Product.js
-const productSchema = require('./Product');
+// const productSchema = require('./Product');
+// const reviewSchema = require('./Review');
 
 const userSchema = new Schema(
   {
-    _id:{
-      type: Number,
-      unique: true,
-      require: true
-    },
     username: {
       type: String,
       required: true,
@@ -26,9 +21,11 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    reviews: [],
+    
+    reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
     // set savedProducts to be an array of data that adheres to the productSchema
-    savedProducts: [productSchema],
+    // savedProducts: [productSchema],
+    savedProduct: [{type: Schema.Types.ObjectId, ref: 'Product'}],
   },
   // set this to use virtual below
   {
