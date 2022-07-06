@@ -58,25 +58,25 @@ const Search = () => {
       username: "MissingNo.",
       rating: 1,
       title: "Lorem ipsum dolor sit amet.",
-      comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
       username: "Tom",
       rating: 4,
       title: "Great bait.",
-      comment: "Worked as intended to lure stuff."
+      description: "Worked as intended to lure stuff."
     },
     {
       username: "Jerry",
       rating: 2,
       title: "Definitely did not like product.",
-      comment: "Did not taste like cheese."
+      description: "Did not taste like cheese."
     },
     {
       username: "Rock",
       rating: 4.5,
       title: "Great product.",
-      comment: "Amazingly hard cheese."
+      description: "Amazingly hard cheese."
     }
   ]);
 
@@ -99,12 +99,12 @@ const Search = () => {
                     />
                   </Grid>
                   <Grid item sx={gridStyles} xs={12} sm={8} md={9}>
-                    <Box component="span">{result.username}</Box>
+                    <Box component="span" sx={{fontSize: 'x-large', fontWeight: 'bold'}}>{result.title}</Box>
                     <Box sx={{display: 'flex', alignItems: 'center'}}>
                       <Rating name="half-rating-read" value={result.rating} precision={0.5} readOnly />
-                      <Box component="span" sx={{ml: 1, fontWeight: 'bold'}}>{result.title}</Box>
+                      <Box sx={{ ml: 1, alignItems: 'center' }}>{labels[result.rating]}</Box>
                     </Box>
-                    <Box component="p">{result.comment}</Box>
+                    <Box component="p">{result.description}</Box>
                   </Grid>
                 </Grid>
               </Stack>
