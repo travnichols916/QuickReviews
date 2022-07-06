@@ -6,16 +6,10 @@ import { saveBookIds, getSavedBookIds } from '../../utils/localStorage';
 import {
     Container,
     Link,
-    AppBar,
     Box,
-    Toolbar,
     Button,
     Stack,
-    IconButton,
-    FormControl,
-    Drawer,
-    Accordion,
-    TextField,
+    Divider,
     Typography
   } from '@mui/material'
   
@@ -42,11 +36,16 @@ import {
     return (
         <>
         <Box>
-            <Stack direction='row'>
-                <Box><Typography variant='h6'>
-                    Title of the Review
-                </Typography></Box>
-                <Button>Delete</Button>
+            <Stack container direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+                <Box item>
+                    <Typography variant='h6'>
+                    Title of Book
+                    </Typography>    
+                    <Typography variant='h6'>
+                    Title of Review
+                    </Typography>
+                </Box>
+                <Button item>Delete</Button>
             </Stack>
             <Stack>
                 <Box>
