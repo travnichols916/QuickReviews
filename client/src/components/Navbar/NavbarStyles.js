@@ -8,7 +8,8 @@ const gridSectionStyles = {
   };
 
   const navBarBGStyles = {
-    background: '#88A5EB'
+    background: '#88A5EB',
+    padding: '5px',
   };
 
   const linkStyles = {
@@ -23,5 +24,6 @@ const gridSectionStyles = {
   const imageStyles={
     width: '100%'
   };
+  
   
   export {gridSectionStyles, gridStyles, imageStyles, linkStyles, navBarBGStyles};
