@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 import {
@@ -13,7 +14,7 @@ import {
 } from '@mui/material'
 
 // import StarIcon from '@mui/icons-material/Star';
-import { styled  } from '@mui/material/styles';
+import { experimental_extendTheme, styled  } from '@mui/material/styles';
 
 import Auth from '../../utils/auth';
 
@@ -54,10 +55,11 @@ function getLabelText(value) {
 }
 
 const Search = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   const [userReview, setUserReview] = useState({});
+  const [searchInput, setSearchInput] = useState('');
   const [productData, setProductData] = useState({});
-  const [titleValue, setTitleValue] = React.useState('');
   // const [commentValue, setCommentValue] = React.useState('');
   const [submittedValue, setSubmittedValue] = React.useState(false);
 
@@ -123,10 +125,41 @@ const Search = () => {
     )
   };
 
-  const handleReviewFormSubmit = (event) => {
+  const handleSearchFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("Submit button titleValue: ", titleValue);
-    // console.log("Submit button commentValue: ", commentValue)
+    console.log("Submit button searchInput: ", searchInput);
+
+    if (!searchInput) {
+      return false;
+    }
+    if (searchInput === 'quickreviews test') {
+      navigate('/product');
+      return false;
+    }
+
+    try {
+      // const response = await searchProducts(searchInput);
+      const response = dataReviews;
+
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
+
+      const { items } = await response.json();
+
+      const resultsData = items.map((product) => ({
+        bookId: product.id,
+        authors: product.volumeInfo.authors || ['No author to display'],
+        title: product.volumeInfo.title,
+        description: product.volumeInfo.description,
+        image: product.volumeInfo.imageLinks?.thumbnail || '',
+      }));
+
+      setDataReviews(resultsData);
+      setSearchInput('');
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   // useEffect(() => {
@@ -161,7 +194,7 @@ const Search = () => {
                       '& .MuiTextField-root': { mt: 0.5, width: '60ch' },
                       '& .MuiButton-root': { width: '15ch' }
                     }}
-                    onSubmit={handleReviewFormSubmit}
+                    onSubmit={handleSearchFormSubmit}
                     noValidate
                     autoComplete="off"
                   >
@@ -169,7 +202,7 @@ const Search = () => {
                       <TextField
                         label="Search for a book"
                         placeholder="Search for a book"                        
-                        onChange={(event) => setTitleValue(event.target.value)}
+                        onChange={(event) => setSearchInput(event.target.value)}
                       />
                       <Button sx={{mt: 0.5}} variant="contained" type="submit">Search</Button>
                       {submittedValue === true && (<Box component="span">Submitted</Box>)}
