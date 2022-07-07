@@ -56,7 +56,6 @@ function getLabelText(value) {
 const Product = () => {
   const [userData, setUserData] = useState({});
   const [userReview, setUserReview] = useState({});
-  const [productData, setProductData] = useState({});
   const [tabReviewValue, setTabReviewValue] = React.useState('1');
   const [reviewerStarValue, setReviewerStarValue] = React.useState(0.5);
   const [reviewerStarHover, setReviewerStarHover] = React.useState(-1);
@@ -64,6 +63,12 @@ const Product = () => {
   const [commentValue, setCommentValue] = React.useState('');
   const [submittedValue, setSubmittedValue] = React.useState(false);
 
+  const [productData, setProductData] = useState({
+    title: "Name of Product",
+    rating: "4.5",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  });
+  
   const [dataReviews, setDataReviews] = React.useState([
     {
       username: "MissingNo.",
@@ -160,7 +165,7 @@ const Product = () => {
               onChange={(event) => setTitleValue(event.target.value)}
             />
             <Box sx={{mt: 0.5, display: 'flex', alignItems: 'center'}}>
-              <Rating name="half-rating" defaultValue={reviewerStarValue} precision={0.5} 
+              <Rating name="half-rating" defaultValue={0.5} precision={0.5} 
                 getLabelText={getLabelText}
                 onChange={(event, newValue) => {
                   setReviewerStarValue(newValue);
@@ -209,7 +214,7 @@ const Product = () => {
             container
             alignItems="center"
           >
-            <Box component="h2" sx={{m: 2, p: 2}}>Name of Product</Box>
+            <Box component="h2" sx={{m: 2, p: 2}}>{productData.title}</Box>
             <Grid item sx={{...gridStyles, p: 3}} xs={12} 
               container
               justifyContent="center"
@@ -225,14 +230,13 @@ const Product = () => {
                 <Stack spacing={1}>
                   <Box component="h3">Product description
                   </Box>
-                  <Box sx={{display: 'flex', alignItems: 'center'}}>
-                    <Rating name="half-rating-read" defaultValue={4.5} precision={0.5} size="large" readOnly />
-                    {reviewerStarValue !== null && (
-                        <Box sx={{ ml: 1, alignItems: 'center' }}>{labels[reviewerStarValue]}</Box>
-                      )}
-                  </Box>
-                  <Box component="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </Box>
+                    {productData.rating !== "" && (
+                      <Box sx={{display: 'flex', alignItems: 'center'}}>
+                        <Rating name="half-rating-read" defaultValue={Number(productData.rating)} precision={0.5} size="large" readOnly />
+                        <Box sx={{ ml: 1, alignItems: 'center' }}>{labels[productData.rating]}</Box>
+                      </Box>
+                    )}
+                  <Box component="p">{productData.description}</Box>
                 </Stack>
               </Grid>
             </Grid>
