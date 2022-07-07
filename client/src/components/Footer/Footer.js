@@ -49,22 +49,19 @@ const Footer = () => {
                         <Box>
                             <Grid>
                                 <Stack direction='row' spacing={3} divider={<Divider orientation='vertical' flexItem />}>
-                                    <Link>Libin's Github</Link>
-                                    <Link>Eric's Github</Link>
+                                    <Link href='https://github.com/ten-gou'>Libin's Github</Link>
+                                    <Link href='https://github.com/EricNg314'>Eric's Github</Link>
                                 </Stack>
                                 <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
-                                <Link>Travis's Github</Link>
-                                <Link>Alan's Github</Link>
+                                <Link href='https://github.com/travnichols916'>Travis's Github</Link>
+                                <Link href='https://github.com/alananibal'>Alan's Github</Link>
                                 </Stack>
                             </Grid>
-                            
-                            
-
                         </Box>
                     </Stack>
 
                     <Stack>
-                        About Us Page
+                        <Link href='/about'>About Us Page</Link>
                     </Stack>
                 </Grid>
             </ContainerStyled>
