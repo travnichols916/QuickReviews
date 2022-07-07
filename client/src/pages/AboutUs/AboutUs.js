@@ -67,16 +67,26 @@ const AboutUs = () => {
                                     <Grid item sx={gridStyles} xs={12} md={8} lg={8}>
                                         <Box component="h2" sx={{textAlign: 'center'}}>Alan Anibal Souza Ramos</Box>
                                     </Grid>
-                                    <Grid>
+                                    <Grid item xs={12} md={8} lg={8}>
                                         <Box component='img' sx={imageStyles}
                                         src='https://cdn.discordapp.com/attachments/122572496741335040/994638391234793522/Alan.jpg'
                                         alt=''
                                         />
                                     </Grid>
+                                    <Grid item sx={gridStyles} xs={12} md={8} lg={8}>
+                                        <Box component="p" sx={{textAlign: 'center'}}>
+                                            <Link href='https://github.com/alananibal'>Alan Anibal Souza Ramos' Github</Link>
+                                        </Box>
+                                    </Grid>
                                 </Stack>
-                            </Grid>
+                            </Grid></Grid>
                                 
-
+                            <Grid
+                            item sx={gridSectionStyles} xs={12}
+                            container
+                            justifyContent="center"
+                            alignItems="center"
+                            >
                             {/*Eric */}
                             <Grid item sx={gridStyles} xs={12} spacing={2}>
                                 <Stack
@@ -93,9 +103,21 @@ const AboutUs = () => {
                                         alt=''
                                         />
                                     </Grid>
+                                    <Grid item sx={gridStyles} xs={12} md={8} lg={8}>
+                                        <Box component="p" sx={{textAlign: 'center'}}>
+                                            <Link href='https://github.com/EricNg314'>Eric Ng's Github</Link>
+                                        </Box>
+                                    </Grid>
                                 </Stack>
                             </Grid>
+                            </Grid>
 
+                            <Grid
+                            item sx={gridSectionStyles} xs={12}
+                            container
+                            justifyContent="center"
+                            alignItems="center"
+                            >
                             {/*Libin */}
                             <Grid item sx={gridStyles} xs={12} spacing={2}>
                                 <Stack
@@ -112,9 +134,21 @@ const AboutUs = () => {
                                         alt=''
                                         />
                                     </Grid>
+                                    <Grid item sx={gridStyles} xs={12} md={8} lg={8}>
+                                        <Box component="p" sx={{textAlign: 'center'}}>
+                                            <Link href='https://github.com/ten-gou'>Libin Wang's Github</Link>
+                                        </Box>
+                                    </Grid>
                                 </Stack>
                             </Grid>
+                            </Grid>
 
+                            <Grid
+                            item sx={gridSectionStyles} xs={12}
+                            container
+                            justifyContent="center"
+                            alignItems="center"
+                            >
                             {/*Travis */}
                             <Grid item sx={gridStyles} xs={12} spacing={2}>
                                 <Stack
@@ -124,12 +158,17 @@ const AboutUs = () => {
                                 alignItems:"center"}}>
                                     <Grid item sx={gridStyles} xs={12} md={8} lg={8}>
                                         <Box component="h2" sx={{textAlign: 'center'}}>Travis Nichols</Box>
-                                        </Grid>
+                                    </Grid>
                                     <Grid>
                                         <Box component='img' sx={imageStyles}
                                         src='https://cdn.discordapp.com/attachments/122572496741335040/994638391511625859/Travis.jpg'
                                         alt=''
                                         />
+                                    </Grid>
+                                    <Grid item sx={gridStyles} xs={12} md={8} lg={8}>
+                                        <Box component="p" sx={{textAlign: 'center'}}>
+                                            <Link href='https://github.com/travnichols916'>Travis Nichols' Github</Link>
+                                        </Box>
                                     </Grid>
                                 </Stack>
                             </Grid>
