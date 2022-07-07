@@ -40,7 +40,7 @@ const Footer = () => {
                 <Grid
                 container
                 spacing={2}
-                justifyContent="start"
+                justifyContent="space-between"
                 alignItems="center"
                 textAlign='left'
                 >

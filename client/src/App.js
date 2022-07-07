@@ -9,6 +9,7 @@ import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           {/* <Route path='/search' element={<Search />} /> */}
           <Route path='/product' element={<Product />} />
-          {/* <Route path='/about' element={<About />} /> */}
+          <Route path='/about' element={<AboutUs />} />
 
           <Route exact path='/search' element={<SearchBooks />} />
           <Route exact path='/saved' element={<SavedBooks />} />
