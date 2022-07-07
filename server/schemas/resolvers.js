@@ -1,7 +1,7 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models/User");
-const { Product } = require("../models/Product");
-const { Review } = require("../models/Review");
+const  User = require("../models/User");
+const  Product = require("../models/Product");
+const  Review = require("../models/Review");
 
 const { signToken } = require("../utils/auth");
 
@@ -79,11 +79,11 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { products: product._id } },
+          { $push: { saveProducts: args } },
           { new: true }
         );
 
-        return upatedUser;
+        return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
     },

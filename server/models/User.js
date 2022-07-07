@@ -25,7 +25,7 @@ const userSchema = new Schema(
     reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
     // set savedProducts to be an array of data that adheres to the productSchema
     // savedProducts: [productSchema],
-    savedProduct: [{type: Schema.Types.ObjectId, ref: 'Product'}],
+    savedProducts: [{type: Schema.Types.ObjectId, ref: 'Product'}],
   },
   // set this to use virtual below
   {
