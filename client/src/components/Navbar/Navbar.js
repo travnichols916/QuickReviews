@@ -13,15 +13,31 @@ import {
   IconButton,
   FormControl,
   Drawer,
+  Grid,
+  Icon,
+  Stack,
+  SvgIcon,
+  List,
+  Switch,
+  Divider,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   Accordion,
   TextField,
-  Typography
+  Typography,
+  Collapse,
+  FormControlLabel,
+  Checkbox
 } from '@mui/material'
-
 import { styled  } from '@mui/material/styles';
 import { lightBlue } from '@mui/material/colors';
+import DensitySmallIcon from '@mui/icons-material/DensitySmall';
+
 
 import {gridSectionStyles, gridStyles, imageStyles, linkStyles, navBarBGStyles} from './NavbarStyles.js';
+import { borderBottom, textAlign } from '@mui/system';
 
 
 const BoxBackground = styled(Box)(({ theme }) => ({
@@ -37,9 +53,13 @@ const ContainerStyled = styled(Container)(({ theme }) => ({
 }));
 
 const AppNavbar = () => {
-    // set modal display state
-    const [showModal, setShowModal] = useState(false);
 
+
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
     // create state for holding returned google api data
     const [searchedBooks, setSearchedBooks] = useState([]);
     // create state for holding our search field data
@@ -111,17 +131,39 @@ const AppNavbar = () => {
   
     return (
       <>
-    <Box sx={{ flexGrow: 1 }}>
+    <Grid sx={{ 
+      flexGrow: 1,
+      }}>
       <AppBar position="static"
       sx={navBarBGStyles}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Grid
+        container
+        direction='horizontal'
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignContent: 'center',
+        }}
+        >
+        <Grid
+        item
+        xs={5} sm={2}
+        margin='0 auto'
+        >
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>
             <Link href='/'
             sx={linkStyles}>
-              QuickReviews
+              Quick Reviews
             </Link>
           </Typography>
-
+        </Grid>
+          
+        <Grid
+        item
+        xs={8} sm={3}
+        margin='0 auto'
+        >
+          <Grid>
           <FormControl>
             <TextField variant='standard'
             id='searchInput'
@@ -133,12 +175,25 @@ const AppNavbar = () => {
             type='submit'
             variant='success' 
             size='sm'
+            sx={{
+              marginLeft: '0px',
+              padding: '3.5px',
+            }}
             id='searchInputBtn'
           >Search</Button>
+          </Grid>
+        </Grid>
+          
 
-
-{/* Login/Signup Buttons or ViewProfile/Logout Buttons*/}
-      {/*Auth.loggedIn() ? ( */}
+        <Grid
+        item
+        xs={5} sm={3}>
+          {/* Login/Signup Buttons or ViewProfile/Logout Buttons*/}
+<Grid
+container
+direction='horizontal'
+margin='0 auto'>
+        {Auth.loggedIn() ? (
         <>
           <Button>
             <Link href='/profile' sx={linkStyles}>
@@ -149,7 +204,7 @@ const AppNavbar = () => {
               Logout
           </Button>        
         </>
-      {/*}) : (*/}
+      ) : (
         <>
           <Button>
             <Link href='/login'
@@ -162,12 +217,15 @@ const AppNavbar = () => {
             >Signup</Link>
           </Button>
         </>
-      {/*})}*/}
+        )}
+
+</Grid>
+        </Grid>
 
 
-        </Toolbar>
+        </Grid>
       </AppBar>
-    </Box>
+    </Grid>
 
       </>
     );
