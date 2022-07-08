@@ -19,6 +19,15 @@ mutation login ($email: String!, $password: String!)
     token
     user{email, password}
   }
-}
+};
+`
+// SAVE_PRODUCT Missing
+export const REMOVE_PRODUCT = gql `
 
+mutation RemoveProduct($productId: ID!) {
+  removeProduct(productId: $productId) {
+    _id
+    username
+  }
+}
 `
