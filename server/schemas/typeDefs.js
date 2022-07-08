@@ -53,7 +53,7 @@ type Mutation {
      saveProduct(title: String!, image: String!, link: String!, description: String!): User
      removeProduct(productId: ID!): User 
 
-      addReview(_id: ID!, reviewText: String) : User
+      addReview(_id: ID!, reviewText: String!, rating: String!, recommended: Boolean!) : User
       updateReview(_id: ID!, reviewId: ID!): User
       deleteReview(_id: ID!, reviewid: ID!): User
  }

@@ -22,6 +22,31 @@ mutation login ($email: String!, $password: String!)
 };
 `
 // SAVE_PRODUCT Missing
+export const SAVE_PRODUCT= gql `
+mutation SaveProduct(
+  $title: String!, 
+  $image: String!, 
+  $link: String!, 
+  $description: String!) 
+
+{
+  saveProduct(title: $title, 
+  image: $image, 
+  link: $link, 
+  description: $description) 
+  {
+    username
+    savedProducts {
+      _id
+      title
+      reviews {
+        reviewText
+      }
+    }
+  }
+}
+
+`
 export const REMOVE_PRODUCT = gql `
 
 mutation RemoveProduct($productId: ID!) {
