@@ -1,5 +1,8 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Review, Product } = require("../models");
+const  User = require("../models/User");
+const  Product = require("../models/Product");
+const  Review = require("../models/Review");
+
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -9,9 +12,7 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
-          .populate
-          // "reviews"
-          // ();
+          .populate ("reviews");
 
         return userData;
       }
@@ -76,13 +77,14 @@ const resolvers = {
     },
     saveProduct: async (parent, args, context) => {
       if (context.user) {
-        const updatedUser = await User.findByIdAndUpdate(
+        const product = await Product.create({ ...args, username: context.user.username });
+        await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { products: product._id } },
+          { $addtoset: { saveProducts: { args }  } },
           { new: true }
         );
-
-        return upatedUser;
+      
+         return args;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -144,7 +146,6 @@ const resolvers = {
 };
    
   
-  //;aksdfnaskdfjfnasdliansdkajsdfn 
+
   
-  module.exports = resolvers;
-  
+module.exports = resolvers;

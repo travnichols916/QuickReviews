@@ -1,5 +1,5 @@
 const { gql } = require('apollo-server-express');
-const { model } = require('mongoose');
+
 
 const typeDefs = gql`
 type User {
@@ -13,7 +13,7 @@ type User {
   }
 
 type Product {
-    productId: String
+    _id: ID
     title: String
     authors: [String]
     description: String
@@ -37,25 +37,28 @@ type Auth {
 }
 
 type Query {
-    # me: User
-    # user:(username: String!): User
-    # users: [User]
-    # product: (_id: String!): Product
-    # products: [Product]
+    me: User
+    user(username: String!): User
+    users: [User]
+    product(_id: String!): Product
+    products: [Product]
+    reviews: [Review]
+    review(_id: String!): Review
 }
-type Mutation {
-    # addUser(username: String!, email: String!, password: String!): Auth
-    # login(email: String!, password: String!): Auth
-    
-    # saveProduct(title: String!, image: String!, link: String!, description: String!): User
-    # removeProduct(_id: ID!): User
 
-    # addReview(_id: ID!, reviewText: String) : User
-    # updateReview(_id: ID!, reviewId: ID!): User
-    # deleteReview(_id: ID!, reviewid: ID!): User
-}
+type Mutation {
+     addUser(username: String!, email: String!, password: String!): Auth
+     login(email: String!, password: String!): Auth
+    
+     saveProduct(title: String!, image: String!, link: String!, description: String!): User
+     removeProduct(_id: ID!): User
+
+      addReview(_id: ID!, reviewText: String) : User
+      updateReview(_id: ID!, reviewId: ID!): User
+      deleteReview(_id: ID!, reviewid: ID!): User
+ }
 `;
 
-//travis added this
+
 module.exports = typeDefs;
 // missing user Id in Reviews
