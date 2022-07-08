@@ -105,7 +105,7 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     //   Create a Review
-    addReview: async(parent, args, context) => {
+    addReview: async(parent, { productId }, context) => {
         if(context.user) {
           // Create Review
           const review = await Review.create({...args, username: context.user.username})
@@ -119,7 +119,7 @@ const resolvers = {
           console.log(updatedUser)
           // Add Review to Product
           const updateProduct = await Product.findByIdAndUpdate(
-               { _id: context.product._id },
+               { _id: productId },
                { $push: { reviews: review } },
                { new: true }
              );
