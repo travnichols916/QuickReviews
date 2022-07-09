@@ -34,8 +34,8 @@ import {
 import { styled  } from '@mui/material/styles';
 import { lightBlue } from '@mui/material/colors';
 import DensitySmallIcon from '@mui/icons-material/DensitySmall';
-
-
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import {gridSectionStyles, gridStyles, imageStyles, linkStyles, navBarBGStyles} from './NavbarStyles.js';
 import { borderBottom, textAlign } from '@mui/system';
 
@@ -52,14 +52,118 @@ const ContainerStyled = styled(Container)(({ theme }) => ({
   },
 }));
 
-const AppNavbar = () => {
-
-
+// The Collapsing Left Side of the Navbar FXN
+const CollapseFunction = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
+
+  if (matches === true) {
+    return  Auth.loggedIn() ? (
+      <>
+        <Button>
+          <Link href='/profile' sx={linkStyles}>
+            View Profile
+          </Link>
+        </Button>
+        <Button onClick={Auth.logout} sx={linkStyles}>
+            Logout
+        </Button>        
+      </>
+    ) : (
+      <>
+        <Button>
+          <Link href='/login'
+          sx={linkStyles}
+          >Login</Link>
+        </Button>
+        <Button>
+          <Link href='/signup'
+          sx={linkStyles}
+          >Signup</Link>
+        </Button>
+      </>
+      )
+  }
+  else {
+    return Auth.loggedIn() ? (
+      <>
+      <FormControlLabel
+        control={<Checkbox checked={checked} onChange={handleChange} icon={<DensitySmallIcon />} checkedIcon={<DensitySmallIcon />}/>}
+        />
+
+        <Collapse in={checked}>
+        <Button>
+          <Link href='/profile' sx={linkStyles}>
+            View Profile
+          </Link>
+        </Button>
+        <Button onClick={Auth.logout} sx={linkStyles}>
+            Logout
+        </Button>
+        </Collapse>        
+      </>
+    ) : (
+      <>
+      <FormControlLabel
+        control={<Checkbox checked={checked} onChange={handleChange} icon={<DensitySmallIcon />} checkedIcon={<DensitySmallIcon />}/>}
+        />
+
+        <Collapse in={checked}>
+        <Button>
+          <Link href='/login'
+          sx={linkStyles}
+          >Login</Link>
+        </Button>
+        <Button>
+          <Link href='/signup'
+          sx={linkStyles}
+          >Signup</Link>
+        </Button>
+        </Collapse>
+      </>
+      )
+  }
+}
+
+// Thumbnail, which changes between QuickReviews and QR
+const Thumbnail = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+  if (matches === true) {
+    return  <Typography variant="h5" component="div" sx={{ flexGrow: 1, textAlign: 'center', }}>
+              <Link href='/'
+              sx={linkStyles}
+              >
+                Quick Reviews
+              </Link>
+            </Typography>
+  }
+  else {
+    return  <Typography variant="h3" component="div" sx={{ flexGrow: 1, textAlign: 'center', textDecoration: 'unset' }}>
+              <Link href='/'
+              sx={linkStyles}
+              >
+                QR
+              </Link>
+            </Typography>
+  }
+}
+
+const theme = createTheme();
+
+// The NavBar itself
+const AppNavbar = () => {
     // create state for holding returned google api data
     const [searchedBooks, setSearchedBooks] = useState([]);
     // create state for holding our search field data
@@ -138,7 +242,7 @@ const AppNavbar = () => {
       sx={navBarBGStyles}>
         <Grid
         container
-        direction='horizontal'
+        columns={12}
         sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -147,23 +251,23 @@ const AppNavbar = () => {
         >
         <Grid
         item
-        xs={5} sm={2}
-        margin='0 auto'
+        xs={3} sm={2}
+        justifyItems='center'
         >
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1, textAlign: 'center', }}>
             <Link href='/'
             sx={linkStyles}>
-              Quick Reviews
+              <ThemeProvider theme={theme}>
+                <Thumbnail />
+              </ThemeProvider>
             </Link>
           </Typography>
         </Grid>
           
         <Grid
         item
-        xs={8} sm={3}
-        margin='0 auto'
+        xs={6} sm={3}
         >
-          <Grid>
           <FormControl>
             <TextField variant='standard'
             id='searchInput'
@@ -181,45 +285,23 @@ const AppNavbar = () => {
             }}
             id='searchInputBtn'
           >Search</Button>
-          </Grid>
         </Grid>
           
 
+
         <Grid
         item
-        xs={5} sm={3}>
+        xs={3} sm={3}>
           {/* Login/Signup Buttons or ViewProfile/Logout Buttons*/}
-<Grid
-container
-direction='horizontal'
-margin='0 auto'>
-        {Auth.loggedIn() ? (
-        <>
-          <Button>
-            <Link href='/profile' sx={linkStyles}>
-              View Profile
-            </Link>
-          </Button>
-          <Button onClick={Auth.logout} sx={linkStyles}>
-              Logout
-          </Button>        
-        </>
-      ) : (
-        <>
-          <Button>
-            <Link href='/login'
-            sx={linkStyles}
-            >Login</Link>
-          </Button>
-          <Button>
-            <Link href='/signup'
-            sx={linkStyles}
-            >Signup</Link>
-          </Button>
-        </>
-        )}
+          <Grid
+          container
+          direction='horizontal'>
 
-</Grid>
+            <ThemeProvider theme={theme}>
+              <CollapseFunction />
+            </ThemeProvider>
+
+          </Grid>
         </Grid>
 
 
