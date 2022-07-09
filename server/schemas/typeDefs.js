@@ -24,6 +24,7 @@ type Product {
 
 type Review {
     _id: ID
+    apiId: String
     userId: ID
     reviewText: String
     rating: Float
@@ -53,7 +54,7 @@ type Mutation {
      saveProduct(title: String!, image: String!, link: String!, description: String!): User
      removeProduct(productId: ID!): User 
 
-      addReview(productId: ID!, reviewText: String!, rating: String!, recommended: Boolean!) : User
+      addReview(apiId: ID!, reviewText: String!, rating: String!, recommended: Boolean!) : User
       updateReview(productId: ID!, reviewId: ID!): User
       deleteReview(productId: ID!, reviewid: ID!): User
  }

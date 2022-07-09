@@ -8,11 +8,11 @@ const productSchema = new Schema(
     type: String,
     required: true,
   },
-  // // saved product id 
-  // productId: {
-  //   type: String,
-  //   required: true,
-  // },
+  // saved api id 
+  apiId: {
+    type: String,
+    required: true,
+  },
   image: {
     type: String,
   },
