@@ -2,13 +2,15 @@ const { Schema, model } = require('mongoose');
 
 const reviewSchema = new Schema(
     {
-       
+     apiId: {
+      type: String,
+    },
     reviewText:{
         type: String,
         required: true,
         maxLength: 280,
       },
-      rating:{
+    rating:{
         type: String,
         required: true,
         minLength: 0,
