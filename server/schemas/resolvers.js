@@ -1,7 +1,7 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models/User");
-const { Product } = require("../models/Product");
-const { Review } = require("../models/Review");
+const  User = require("../models/User");
+const  Product = require("../models/Product");
+const  Review = require("../models/Review");
 
 const { signToken } = require("../utils/auth");
 
@@ -77,39 +77,56 @@ const resolvers = {
     },
     saveProduct: async (parent, args, context) => {
       if (context.user) {
+        const product = await Product.create({ ...args, username: context.user.username });
+        console.log(product);
+        
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { products: product._id } },
+          { $push: { savedProducts: product  } },
           { new: true }
         );
-
-        return upatedUser;
+          console.log(updatedUser)
+         return updatedUser;
+        return product;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removeProduct: async (parent, args, context) => {
+    removeProduct: async (parent, { productId }, context) => {
       if (context.user) {
+        
         const updateUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $pull: { products: product._id } },
+          { $pull: { savedProducts: productId } },
           { new: true }
         );
-
+        const removedProduct = await Product.findByIdAndRemove(productId)
+        console.log(removedProduct)
         return updateUser;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     //   Create a Review
-    addReview: async(parent, args, context) => {
+    addReview: async(parent, { productId }, context) => {
         if(context.user) {
-              
+          // Create Review
+          const review = await Review.create({...args, username: context.user.username})
+          console.log(review)
+          // Add Review to USEr
+          const updatedUser = await User.findByIdAndUpdate(
+            { _id: context.user._id },
+            { $push: { reviews: review  } },
+            { new: true }
+          );
+          console.log(updatedUser)
+          // Add Review to Product
           const updateProduct = await Product.findByIdAndUpdate(
-               { _id: context.product._id },
-               { $push: { reviews: review._id } },
-               { new: true }
+            //API ID 
+            { _id: productId },
+            { $push: { reviews: review } },
+            { new: true }
              );
-     
-             return updateUser;
+          console.log(updateProduct)
+          return updatedUser;
        }
        throw new AuthenticationError('You need to be logged in!');
     },
@@ -130,7 +147,9 @@ const resolvers = {
     //  Remove a Review
     deleteReview: async(parent, args, context) => {
         if(context.user) {
-              
+          //  Delete Review from User
+          // Delete review from rpoduct
+              // Delete Review from review
           const updateProduct = await Product.findByIdAndUpdate(
                { _id: context.user._id },
                { $pull: { reviews: review._id } },
