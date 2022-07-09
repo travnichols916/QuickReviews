@@ -21,7 +21,7 @@ mutation login ($email: String!, $password: String!)
   }
 };
 `
-// SAVE_PRODUCT Missing
+// SAVE_PRODUCT 
 export const SAVE_PRODUCT= gql `
 mutation SaveProduct(
   $title: String!, 

@@ -87,6 +87,7 @@ const resolvers = {
         );
           console.log(updatedUser)
          return updatedUser;
+        return product;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -119,9 +120,10 @@ const resolvers = {
           console.log(updatedUser)
           // Add Review to Product
           const updateProduct = await Product.findByIdAndUpdate(
-               { _id: productId },
-               { $push: { reviews: review } },
-               { new: true }
+            //API ID 
+            { _id: productId },
+            { $push: { reviews: review } },
+            { new: true }
              );
           console.log(updateProduct)
           return updatedUser;
