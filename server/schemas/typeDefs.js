@@ -24,6 +24,8 @@ type Product {
 
 type Review {
     _id: ID
+    isbn: String
+    reviewTitle: String
     userId: ID
     reviewText: String
     rating: Float
@@ -50,10 +52,10 @@ type Mutation {
      addUser(username: String!, email: String!, password: String!): Auth
      login(email: String!, password: String!): Auth
     
-     saveProduct(title: String!, image: String!, link: String!, description: String!): User
-     removeProduct(productId: ID!): User 
+    #  saveProduct(title: String!, image: String!, link: String!, description: String!): User
+    #  removeProduct(productId: ID!): User 
 
-      addReview(productId: ID!, reviewText: String!, rating: String!, recommended: Boolean!) : User
+      addReview(isbn: ID!, reviewTitle: String!, reviewText: String!, rating: String!, recommended: Boolean!) : User
       updateReview(productId: ID!, reviewId: ID!): User
       deleteReview(productId: ID!, reviewid: ID!): User
  }
