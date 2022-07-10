@@ -25,8 +25,8 @@ const resolvers = {
         User.findOne({ username })
           .select("-__v -password")
           .populate("reviews")
-          // Saved Products
-          .populate("savedProducts")
+          // // Saved Products
+          // .populate("savedProducts")
       );
     },
     users: async () => {
@@ -40,14 +40,21 @@ const resolvers = {
     },
 
     // Product Reviews
-    reviews: async (parent, { username }) => {
-      const params = username ? { username } : {};
+    reviews: async (parent, { username, productIsbn }) => {
+      const params = username ? { username, productIsbn } : {};
       return Review.find(params).sort({ createdAt: -1 });
     },
-    // Review by Id
-    review: async (parent, { _id }) => {
-      return Review.findOne({ _id });
+    reviewsByUser: async (parent,  { username }) => {
+      const params = username ? { username } : {};
+      return User.find(params).sort({ createdAt: -1 })
+      .populate(reviews);
     },
+
+    reviewsByIsbn: async (parent,  { isbn }) => {
+      const params = isbn ? { isbn } : {};
+      return review.find(params).sort({ createdAt: -1 })
+      
+    }
   },
 
   Mutation: {
@@ -75,41 +82,42 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveProduct: async (parent, args, context) => {
-      if (context.user) {
-        const product = await Product.create({ ...args, username: context.user.username });
-        console.log(product);
+    // saveProduct: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const product = await Product.create({ ...args, username: context.user.username });
+    //     console.log(product);
         
-        const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { savedProducts: product  } },
-          { new: true }
-        );
-          console.log(updatedUser)
-         return updatedUser;
-        return product;
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
-    removeProduct: async (parent, { productId }, context) => {
-      if (context.user) {
+    //     const updatedUser = await User.findByIdAndUpdate(
+    //       { _id: context.user._id },
+    //       { $push: { savedProducts: product  } },
+    //       { new: true }
+    //     );
+    //       console.log(updatedUser)
+    //      return updatedUser;
+    //     return product;
+    //   }
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
+    // removeProduct: async (parent, { productId }, context) => {
+    //   if (context.user) {
         
-        const updateUser = await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $pull: { savedProducts: productId } },
-          { new: true }
-        );
-        const removedProduct = await Product.findByIdAndRemove(productId)
-        console.log(removedProduct)
-        return updateUser;
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
+    //     const updateUser = await User.findByIdAndUpdate(
+    //       { _id: context.user._id },
+    //       { $pull: { savedProducts: productId } },
+    //       { new: true }
+    //     );
+    //     const removedProduct = await Product.findByIdAndRemove(productId)
+    //     console.log(removedProduct)
+    //     return updateUser;
+    //   }
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
     //   Create a Review
-    addReview: async(parent, { productId }, context) => {
+    addReview: async(parent, args, context) => {
         if(context.user) {
           // Create Review
-          const review = await Review.create({...args, username: context.user.username})
+          const { productIsbn, productTitle, reviewTitle, reviewText, rating, recommended } = args;
+          const review = await Review.create({productIsbn, reviewTitle, reviewText, rating, recommended, username: context.user.username})
           console.log(review)
           // Add Review to USEr
           const updatedUser = await User.findByIdAndUpdate(
@@ -119,13 +127,13 @@ const resolvers = {
           );
           console.log(updatedUser)
           // Add Review to Product
-          const updateProduct = await Product.findByIdAndUpdate(
-            //API ID 
-            { _id: productId },
-            { $push: { reviews: review } },
-            { new: true }
-             );
-          console.log(updateProduct)
+          // const updateProduct = await Product.findByIdAndUpdate(
+          //   //API ID 
+          //   { _id: isbn },
+          //   { $push: { reviews: review } },
+          //   { new: true }
+          //    );
+          // console.log(updateProduct)
           return updatedUser;
        }
        throw new AuthenticationError('You need to be logged in!');
