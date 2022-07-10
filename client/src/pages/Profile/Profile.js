@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
+import { getSearchedBookIds } from '../../utils/localStorage';
 
 import {
     CssBaseline,
@@ -50,7 +51,7 @@ const Profile = () => {
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do`
       }
     ])
-    
+
     console.log(data);
 
     if (loading) {
