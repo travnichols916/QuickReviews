@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getMe } from '../../utils/API';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
+
 import ProfileIndivReview from '../../components/ProfileIndividualReviews/ProfileIndividualReviews';
 
 import {
@@ -34,6 +37,26 @@ import {gridSectionStyles, gridStyles, imageStyles, linkStyles} from './ProfileS
   }));
 
 const Profile = () => {
+    const { loading, error, data } = useQuery(QUERY_ME);
+    
+    console.log(data)
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        console.error(error);
+        return <div>Error!</div>;
+    }
+
+      if (!Auth.loggedIn) {
+    return (
+      <h4>
+        You need to be logged in to see this. Use the navigation links above to
+        sign up or log in!
+      </h4>
+    );
+  }
 
 
     return (
@@ -63,12 +86,12 @@ const Profile = () => {
                                 <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} item
                         sx={gridStyles}>
                                     <Box sm={6} md={4} lg={3}>Username</Box>
-                                    <Box sm={6} md={8} lg={9}>Your Username</Box>
+                                    <Box sm={6} md={8} lg={9}>{data.me.username}</Box>
                                 </Stack>
                                 <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} item
                         sx={gridStyles}>
                                     <Box>Email</Box>
-                                    <Box>Your Email</Box>
+                                    <Box>{data.me.email}</Box>
                                 </Stack>
                                 <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} item
                         sx={gridStyles}>
@@ -108,5 +131,6 @@ const Profile = () => {
         </>
     )
  }
+
 
 export default Profile;

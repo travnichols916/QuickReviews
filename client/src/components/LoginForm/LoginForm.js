@@ -87,8 +87,8 @@ const LoginForm = (props) => {
               <Button 
               disabled={!formState.email && !formState.username && !formState.password} 
               type="submit" 
-              label='Sign Up'>
-                Sign Up
+              label='Login'>
+                Login
               </Button>
             </Stack>
           
