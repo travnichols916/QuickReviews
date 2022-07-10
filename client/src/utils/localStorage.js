@@ -21,3 +21,11 @@ export const saveSelectBook = (book) => {
     localStorage.removeItem('selectedBook');
   }
 }
+
+export const getSelectBook = () => {
+  const selectBook = localStorage.getItem('selectedBook')
+    ? JSON.parse(localStorage.getItem('selectedBook'))
+    : [];
+
+  return selectBook;
+}
