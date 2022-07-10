@@ -4,8 +4,6 @@ import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
-import ProfileIndivReview from '../../components/ProfileIndividualReviews/ProfileIndividualReviews';
-
 import {
     CssBaseline,
     Box,
@@ -38,8 +36,22 @@ import {gridSectionStyles, gridStyles, imageStyles, linkStyles} from './ProfileS
 
 const Profile = () => {
     const { loading, error, data } = useQuery(QUERY_ME);
+    const [dataIndivReviews, setIndivReviews] = React.useState([
+      {
+        rating: 5,
+        bookTitle: 'Arte Fowler',
+        reviewTitle: 'The main character is the villain!',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do'
+      },
+      {
+        rating: 1,
+        bookTitle: 'A Series of Unfortunate Events',
+        reviewTitle: `The Only "Unfortunate" Event Is Having To Read This Book!`,
+        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do`
+      }
+    ])
     
-    console.log(data)
+    console.log(data);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -58,6 +70,39 @@ const Profile = () => {
     );
   }
 
+  //maps the reviews so that the information all displays
+  const profileIndivReviews = (reviews) => {
+    return (
+      <Box>
+      {reviews.map((review, index) => {
+        return (
+          <Box>
+          <Stack container direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+          <Box item sx={gridStyles}>
+              <Typography variant='h5'>
+              {review.bookTitle}
+              </Typography>    
+              <Typography variant='h6'>
+              {review.reviewTitle} - {review.rating}/5 Stars!
+              </Typography>
+          </Box>
+          {/*onClick={handleDelete}*/}
+          <Button>Delete</Button>
+      </Stack>
+      <Stack>
+          <Box item sx={gridStyles}>
+              <Typography paragraph='true'>
+              {review.description}
+              </Typography>
+          </Box>
+      </Stack>
+      </Box>
+        )
+      })}
+      </Box>
+      
+    )
+  }
 
     return (
         <>
@@ -93,7 +138,7 @@ const Profile = () => {
                                     <Box>Email</Box>
                                     <Box>{data.me.email}</Box>
                                 </Stack>
-                                <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} item
+                                <Stack direction='row' spacing={{xs:0, sm:2}} divider={<Divider orientation='vertical' flexItem />} item
                         sx={gridStyles}>
                                     <Button variant='outline'>Change Username</Button>
                                     <Button variant='outline'>Change Email</Button>
@@ -119,7 +164,7 @@ const Profile = () => {
                         sx={gridStyles}>
                             <Stack>
                                 {/*Individual Reviews*/}
-                                <ProfileIndivReview />
+                                {profileIndivReviews(dataIndivReviews)}
                             </Stack>
                         </Box>
                         </Stack>
