@@ -8,21 +8,7 @@ import {
   Box,
   Toolbar,
   Button,
-  IconButton,
-  FormControl,
-  Drawer,
   Grid,
-  Icon,
-  Stack,
-  SvgIcon,
-  List,
-  Switch,
-  Divider,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Accordion,
   TextField,
   Typography,
   Collapse,
@@ -36,8 +22,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import {gridSectionStyles, gridStyles, imageStyles, linkStyles, navBarBGStyles} from './NavbarStyles.js';
 import { borderBottom, textAlign } from '@mui/system';
-import { useQuery } from '@apollo/client';
-import { SEARCH_PRODUCTS } from '../../utils/queries';
 
 const BoxBackground = styled(Box)(({ theme }) => ({
   paddingTop: '2rem',
