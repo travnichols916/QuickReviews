@@ -169,14 +169,6 @@ const AppNavbar = () => {
 
     try {
       const response = await searchGoogleBooks(formState.title);
-      // const response = dataReviews;
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      console.log(response)
-      
     } catch (err) {
       console.error(err);
     }
