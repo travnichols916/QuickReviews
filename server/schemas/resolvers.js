@@ -51,7 +51,7 @@ const resolvers = {
     },
 
     reviewsByIsbn: async (parent,  { isbn }) => {
-      const params = username ? { username } : {};
+      const params = isbn ? { isbn } : {};
       return review.find(params).sort({ createdAt: -1 })
       
     }
