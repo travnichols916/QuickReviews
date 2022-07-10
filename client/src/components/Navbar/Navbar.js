@@ -174,6 +174,8 @@ const AppNavbar = () => {
     }
 
     setFormState({ title: '' });
+
+    window.location.pathname = '/search';
   }
   
     return (
@@ -230,7 +232,6 @@ const AppNavbar = () => {
               padding: '3.5px',
             }}
             id='titleBtn'
-            href='/search'
           >Search</Button>
 
           </form>
