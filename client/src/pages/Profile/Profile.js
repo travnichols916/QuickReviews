@@ -4,8 +4,6 @@ import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
-import ProfileIndivReview from '../../components/ProfileIndividualReviews/ProfileIndividualReviews';
-
 import {
     CssBaseline,
     Box,
@@ -38,8 +36,16 @@ import {gridSectionStyles, gridStyles, imageStyles, linkStyles} from './ProfileS
 
 const Profile = () => {
     const { loading, error, data } = useQuery(QUERY_ME);
+    const [dataIndivReviews, setIndivReviews] = React.useState([
+      {
+        rating: 5,
+        bookTitle: 'Artemis Fowl',
+        reviewTitle: 'The main character is the villain!',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do'
+      }
+    ])
     
-    console.log(data)
+    console.log(data);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -58,6 +64,37 @@ const Profile = () => {
     );
   }
 
+  const profileIndivReviews = (reviews) => {
+    return (
+      <Box>
+      {reviews.map((review, index) => {
+        return (
+          <Box>
+          <Stack container direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+          <Box item>
+              <Typography variant='h6'>
+              {review.bookTitle}
+              </Typography>    
+              <Typography variant='h6'>
+              {review.reviewTitle} - {review.rating}/5 Stars!
+              </Typography>
+          </Box>
+          <Button item>Delete</Button>
+      </Stack>
+      <Stack>
+          <Box>
+              <Typography>
+              {review.description}
+              </Typography>
+          </Box>
+      </Stack>
+      </Box>
+        )
+      })}
+      </Box>
+      
+    )
+  }
 
     return (
         <>
@@ -119,7 +156,7 @@ const Profile = () => {
                         sx={gridStyles}>
                             <Stack>
                                 {/*Individual Reviews*/}
-                                <ProfileIndivReview />
+                                {profileIndivReviews(dataIndivReviews)}
                             </Stack>
                         </Box>
                         </Stack>
