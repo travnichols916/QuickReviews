@@ -39,13 +39,13 @@ const Profile = () => {
     const [dataIndivReviews, setIndivReviews] = React.useState([
       {
         rating: 5,
-        bookTitle: 'Arte Fowler',
+        productTitle: 'Arte Fowler',
         reviewTitle: 'The main character is the villain!',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do'
       },
       {
         rating: 1,
-        bookTitle: 'A Series of Unfortunate Events',
+        productTitle: 'A Series of Unfortunate Events',
         reviewTitle: `The Only "Unfortunate" Event Is Having To Read This Book!`,
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do`
       }
@@ -80,7 +80,7 @@ const Profile = () => {
           <Stack container direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
           <Box item sx={gridStyles}>
               <Typography variant='h5'>
-              {review.bookTitle}
+              {review.productTitle}
               </Typography>    
               <Typography variant='h6'>
               {review.reviewTitle} - {review.rating}/5 Stars!

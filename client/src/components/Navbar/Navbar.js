@@ -8,21 +8,7 @@ import {
   Box,
   Toolbar,
   Button,
-  IconButton,
-  FormControl,
-  Drawer,
   Grid,
-  Icon,
-  Stack,
-  SvgIcon,
-  List,
-  Switch,
-  Divider,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Accordion,
   TextField,
   Typography,
   Collapse,
@@ -36,8 +22,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import {gridSectionStyles, gridStyles, imageStyles, linkStyles, navBarBGStyles} from './NavbarStyles.js';
 import { borderBottom, textAlign } from '@mui/system';
-import { useQuery } from '@apollo/client';
-import { SEARCH_PRODUCTS } from '../../utils/queries';
+import { searchGoogleBooks } from '../../utils/API';
 
 const BoxBackground = styled(Box)(({ theme }) => ({
   paddingTop: '2rem',
@@ -176,28 +161,27 @@ const AppNavbar = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const book = formState.title;
-    const bookTitle = book.replace(' ', '%20');
-    const requestUrl = `https://www.googleapis.com/books/v1/volumes?q=${bookTitle}`
+    console.log("Submit button formState.title: ", formState.title);
 
-    try {
-      console.log(book)
-      fetch(requestUrl)
-        .then(function(response) {
-          return response.json()
-        })
-        .then(function(data) {
-          console.log(data)
-          console.log(data.items.length)
-          return data;
-        })
-    } catch (e) {
-      console.error(e);
+    if (!formState.title) {
+      return false;
     }
 
-    setFormState({
-      title: ''
-    });
+    try {
+      const response = await searchGoogleBooks(formState.title);
+      // const response = dataReviews;
+
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
+
+      console.log(response)
+      
+    } catch (err) {
+      console.error(err);
+    }
+
+    setFormState({ title: '' });
   }
   
     return (
@@ -244,6 +228,7 @@ const AppNavbar = () => {
             value={formState.title}
             onChange={(e) => handleChange(e)}></TextField>
           
+
           <Button
             type='submit'
             variant='success' 
