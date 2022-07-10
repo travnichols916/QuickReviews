@@ -23,6 +23,8 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { styled  } from '@mui/material/styles';
 import { getSelectBook } from '../../utils/localStorage';
 
+import { useMutation } from '@apollo/client';
+import { ADD_REVIEW } from '../../utils/mutation';
 import Auth from '../../utils/auth';
 
 import {gridSectionStyles, gridStyles, imageStyles, reviewWrapStyles, reviewRecStyles} from './ProductStyles.js';
@@ -49,6 +51,10 @@ const labels = {
   4.5: 'Excellent',
   5: 'Amazing',
 };
+const recommendedLabels = {
+  0: 'Not Recommended',
+  1: 'Recommended',
+};
 
 function getLabelText(value) {
   return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
@@ -60,6 +66,8 @@ const Product = () => {
   const [tabReviewValue, setTabReviewValue] = React.useState('1');
   const [reviewerStarValue, setReviewerStarValue] = React.useState(0.5);
   const [reviewerStarHover, setReviewerStarHover] = React.useState(-1);
+  const [reviewerRecValue, setReviewerRecValue] = React.useState(0);
+  const [reviewerRecHover, setReviewerRecHover] = React.useState(-1);
   const [titleValue, setTitleValue] = React.useState('');
   const [commentValue, setCommentValue] = React.useState('');
   const [submittedValue, setSubmittedValue] = React.useState(false);
@@ -96,6 +104,8 @@ const Product = () => {
     }
   ]);
 
+  const [ addReview, { error }] = useMutation(ADD_REVIEW);
+
   const handleTabReviewChange = (event, newValue) => {
     event.preventDefault();
     setTabReviewValue(newValue);
@@ -130,11 +140,42 @@ const Product = () => {
     )
   };
 
-  const handleReviewFormSubmit = (event) => {
+  const handleReviewFormSubmit = async (event) => {
     event.preventDefault();
     console.log("Submit button titleValue: ", titleValue);
     console.log("Submit button reviewerStarValue: ", reviewerStarValue);
     console.log("Submit button commentValue: ", commentValue)
+
+    console.log("productData: ", productData);
+    const reviewToSave = {
+      productIsbn: productData.isbn,
+      productTitle: productData.title,
+      reviewTitle: titleValue,
+      reviewText: commentValue,
+      rating: reviewerStarValue,
+      recommended: reviewerRecValue,
+    }
+    console.log("reviewToSave: ", reviewToSave)
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const response = await addReview({
+        variables: { reviewToSave }
+      })
+
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
+
+      setSubmittedValue(true);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const buildReviewerForm = () => {
@@ -183,8 +224,31 @@ const Product = () => {
               placeholder="Comment"
               onChange={(event) => setCommentValue(event.target.value)}
             />
+            <Box sx={{mt: 0.5, display: 'flex', alignItems: 'center'}}>
+              <Rating name="recommended" 
+                defaultValue={0} 
+                precision={1} 
+                max={1}
+                getLabelText={getLabelText}
+                icon={<ThumbUpIcon fontSize="small" />}
+                emptyIcon={<ThumbDownIcon fontSize="small" />}
+                onChange={(event, newValue) => {
+                  if(newValue === null){
+                    newValue = 0
+                  };
+                  setReviewerRecValue(newValue);
+                }}
+                onChangeActive={(event, newHover) => {
+                  setReviewerRecHover(newHover);
+                }}
+                // emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+              />
+              {reviewerRecValue !== null && (
+                <Box sx={{ ml: 2, mb: '0.5rem', alignItems: 'center' }}>{recommendedLabels[reviewerRecHover !== -1 ? reviewerRecHover : reviewerRecValue]}</Box>
+              )}
+            </Box>
             <Button sx={{mt: 0.5}} variant="contained" type="submit">Submit</Button>
-            {submittedValue === true && (<Box component="span">Submitted</Box>)}
+            {submittedValue === true && (<Box component="span">Submitted Review</Box>)}
           </Stack>
         </Box>
       </Stack>
