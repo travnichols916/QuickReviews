@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Auth from '../../utils/auth';
-import { saveBook, searchGoogleBooks } from '../../utils/API';
-import { saveBookIds, getSavedBookIds } from '../../utils/localStorage';
 
 import {
     Container,
@@ -16,7 +14,7 @@ import {
   import { styled  } from '@mui/material/styles';
   import { lightBlue } from '@mui/material/colors';
   
-  import {gridSectionStyles, gridStyles, imageStyles, linkStyles, } from './ProfileIndividualReviewsStyles.js';
+  import {gridSectionStyles, gridStyles, imageStyles, linkStyles, } from './ProfileIndividualReviewsStyles';
   
   const BoxBackground = styled(Box)(({ theme }) => ({
     paddingTop: '2rem',
