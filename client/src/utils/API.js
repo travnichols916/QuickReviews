@@ -32,6 +32,4 @@ export const searchGoogleBooks = (query) => {
     console.log("resultsData", resultsData)
     saveBookIds(resultsData);
     })
-
-  
 };

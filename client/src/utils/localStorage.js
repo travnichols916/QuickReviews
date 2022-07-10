@@ -13,3 +13,11 @@ export const saveBookIds = (bookIdArr) => {
     localStorage.removeItem('resultsData');
   }
 };
+
+export const saveSelectBook = (book) => {
+  if (book) {
+    localStorage.setItem('selectedBook', JSON.stringify(book));
+  } else {
+    localStorage.removeItem('selectedBook');
+  }
+}
