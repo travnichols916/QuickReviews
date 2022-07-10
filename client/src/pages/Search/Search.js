@@ -77,7 +77,7 @@ const Search = () => {
                     container
                     // alignItems="center"
                   >
-                    <Grid item sx={gridStyles} xs={12} sm={4} md={3} onClick={() => saveSelectBook({result})}>
+                    <Grid item sx={gridStyles} xs={12} sm={4} md={3} onClick={() =>    saveSelectBook(result)}>
                       <LinkStyled to={'/product'} >
                         <Box component="img" sx={imageStyles}
                           src={result.image}
@@ -85,7 +85,7 @@ const Search = () => {
                         />
                       </LinkStyled>
                     </Grid>
-                    <Grid item sx={gridStyles} xs={12} sm={8} md={9} onClick={() => saveSelectBook({result})}>
+                    <Grid item sx={gridStyles} xs={12} sm={8} md={9} onClick={() => saveSelectBook(result)}>
                       <LinkStyled to={'/product'} >
                         <Box component="span" sx={{fontSize: 'x-large', fontWeight: 'bold'}}>{result.title}</Box>
                       </LinkStyled>
