@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Auth from '../../utils/auth';
-import { saveBook, searchGoogleBooks } from '../../utils/API';
-import { saveBookIds, getSavedBookIds } from '../../utils/localStorage';
 
 import {
     Container,
