@@ -230,6 +230,7 @@ const AppNavbar = () => {
               padding: '3.5px',
             }}
             id='titleBtn'
+            href='/search'
           >Search</Button>
 
           </form>
