@@ -46,6 +46,8 @@ type Query {
     products: [Product]
     reviews: [Review]
     review(_id: String!): Review
+    reviewsByUser(username: String!): Reviews
+    reviewsByIsbn(apiIsbn: String!): Reviews
 }
 
 type Mutation {

@@ -48,12 +48,13 @@ const resolvers = {
       const params = username ? { username } : {};
       return User.find(params).sort({ createdAt: -1 })
       .populate(reviews);
-    }
+    },
 
-    // // Review by Id
-    // review: async (parent, { _id }) => {
-    //   return Review.findOne({ _id });
-    // },
+    reviewsByIsbn: async (parent,  { isbn }) => {
+      const params = isbn ? { isbn } : {};
+      return review.find(params).sort({ createdAt: -1 })
+      
+    }
   },
 
   Mutation: {
