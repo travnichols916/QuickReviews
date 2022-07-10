@@ -65,12 +65,13 @@ mutation AddReview($productIsbn: String!, $productTitle: String!, $reviewTitle: 
     reviews {
       _id
       productIsbn
+      productTitle
       reviewTitle
       userId
       reviewText
       rating
       recommend
-      dateCreated
+      createdAt
     }
   }
 }
