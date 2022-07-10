@@ -3,8 +3,8 @@
 import { saveBookIds } from "./localStorage";
 
 // https://www.googleapis.com/books/v1/volumes?q=harry+potter
-export const searchGoogleBooks = (query) => {
-  fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
+export const searchGoogleBooks = async (query) => {
+  await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
     .then(function(response) {
       return response.json();
     })
