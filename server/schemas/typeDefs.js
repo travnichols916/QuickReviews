@@ -47,7 +47,7 @@ type Query {
     reviews: [Review]
     review(_id: String!): Review
     reviewsByUser(username: String!): Review
-    reviewsByIsbn(apiIsbn: String!): Review
+    reviewsByIsbn(productIsbn: String!): Review
 }
 
 type Mutation {
@@ -57,7 +57,7 @@ type Mutation {
     #  saveProduct(title: String!, image: String!, link: String!, description: String!): User
     #  removeProduct(productId: ID!): User 
 
-      addReview(isbn: ID!, reviewTitle: String!, reviewText: String!, rating: String!, recommended: Boolean!) : User
+      addReview(productIsbn: String!, productTitle: String!, reviewTitle: String!, reviewText: String!, rating: String!, recommended: Boolean!) : User
       updateReview(productId: ID!, reviewId: ID!): User
       deleteReview(productId: ID!, reviewid: ID!): User
  }
