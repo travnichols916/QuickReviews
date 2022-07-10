@@ -11,7 +11,7 @@ export const searchGoogleBooks = (query) => {
       const { id, volumeInfo } = product;
       const { authors, title, description, averageRating, imageLinks, industryIdentifiers } = volumeInfo;
       let isbn = "";
-      if(industryIdentifiers.length > 1) {
+      if(industryIdentifiers.length > 0) {
         isbn = industryIdentifiers.filter(industryIdentifier => industryIdentifier.type === "ISBN_13")[0].identifier
       }
 
