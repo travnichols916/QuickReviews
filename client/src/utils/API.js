@@ -1,4 +1,7 @@
 // make a search to google books api
+
+import { saveBookIds } from "./localStorage";
+
 // https://www.googleapis.com/books/v1/volumes?q=harry+potter
 export const searchGoogleBooks = (query) => {
   fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
@@ -27,7 +30,7 @@ export const searchGoogleBooks = (query) => {
     });
 
     console.log("resultsData", resultsData)
-    localStorage.setItem('resultsData', JSON.stringify(resultsData))
+    saveBookIds(resultsData);
     })
 
   
