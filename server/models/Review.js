@@ -2,9 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const reviewSchema = new Schema(
     {
-     isbn: {
-      type: String,
-    },
+     productIsbn: { type: String },
+    productTitle: { type: String},
     reviewTitle:  { type: String, },
     reviewText:{
         type: String,

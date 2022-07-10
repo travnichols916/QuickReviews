@@ -40,8 +40,8 @@ const resolvers = {
     },
 
     // Product Reviews
-    reviews: async (parent, { username, isbn }) => {
-      const params = username ? { username, isbn } : {};
+    reviews: async (parent, { username, productIsbn }) => {
+      const params = username ? { username, productIsbn } : {};
       return Review.find(params).sort({ createdAt: -1 });
     },
     reviewsByUser: async (parent,  { username }) => {
@@ -116,8 +116,8 @@ const resolvers = {
     addReview: async(parent, args, context) => {
         if(context.user) {
           // Create Review
-          const { isbn, reviewTitle, reviewText, rating, recommended } = args;
-          const review = await Review.create({isbn, reviewTitle, reviewText, rating, recommended, username: context.user.username})
+          const { productIsbn, productTitle, reviewTitle, reviewText, rating, recommended } = args;
+          const review = await Review.create({productIsbn, reviewTitle, reviewText, rating, recommended, username: context.user.username})
           console.log(review)
           // Add Review to USEr
           const updatedUser = await User.findByIdAndUpdate(
