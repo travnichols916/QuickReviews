@@ -21,6 +21,7 @@ import {
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { styled  } from '@mui/material/styles';
+import { getSelectBook } from '../../utils/localStorage';
 
 import Auth from '../../utils/auth';
 
@@ -44,7 +45,7 @@ const labels = {
   2.5: 'Below Average',
   3: 'Average',
   3.5: 'Above Average',
-  4: 'Above Average',
+  4: 'Very Good',
   4.5: 'Excellent',
   5: 'Amazing',
 };
@@ -62,13 +63,8 @@ const Product = () => {
   const [titleValue, setTitleValue] = React.useState('');
   const [commentValue, setCommentValue] = React.useState('');
   const [submittedValue, setSubmittedValue] = React.useState(false);
+  const [productData, setProductData] = useState(getSelectBook);
 
-  const [productData, setProductData] = useState({
-    title: "Name of Product",
-    rating: "4.5",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  });
-  
   const [dataReviews, setDataReviews] = React.useState([
     {
       username: "MissingNo.",
@@ -115,7 +111,7 @@ const Product = () => {
               <Stack key={index} spacing={0.5} sx={reviewWrapStyles}>
                 <Box component="span">{review.username}</Box>
                 <Box sx={{display: 'flex', alignItems: 'center'}}>
-                  <Rating name="half-rating-read" value={review.rating} precision={0.5} readOnly />
+                  <Rating name="half-rating-read" value={review.rating ? review.rating : 0} precision={0.5} readOnly />
                   <Box component="span" sx={{ml: 1, fontWeight: 'bold'}}>{review.title}</Box>
                 </Box>
                 <Box component="p">{review.comment}</Box>
@@ -222,18 +218,18 @@ const Product = () => {
             >
               <Grid item sx={gridStyles} xs={12} md={5}>
                 <Box component="img" sx={imageStyles}
-                  src='https://via.placeholder.com/1200x700'
-                  alt=''
+                  src={productData.image}
+                  alt={productData.title}
                 />
               </Grid>
               <Grid item sx={gridStyles} xs={12} md={7}>
                 <Stack spacing={1}>
                   <Box component="h3">Product description
                   </Box>
-                    {productData.rating !== "" && (
+                    {productData.averageRating !== "" && (
                       <Box sx={{display: 'flex', alignItems: 'center'}}>
-                        <Rating name="half-rating-read" defaultValue={Number(productData.rating)} precision={0.5} size="large" readOnly />
-                        <Box sx={{ ml: 1, alignItems: 'center' }}>{labels[productData.rating]}</Box>
+                        <Rating name="half-rating-read" defaultValue={productData.averageRating ? productData.averageRating : 0} precision={0.5} size="large" readOnly />
+                        <Box sx={{ ml: 1, alignItems: 'center' }}>{labels[productData.averageRating]}</Box>
                       </Box>
                     )}
                   <Box component="p">{productData.description}</Box>
