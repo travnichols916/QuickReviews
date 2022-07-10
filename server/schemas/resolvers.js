@@ -47,7 +47,7 @@ const resolvers = {
     reviewsByUser: async (parent,  { username }) => {
       const params = username ? { username } : {};
       return User.find(params).sort({ createdAt: -1 })
-      .populate(reviews);
+      // .populate(reviews);
     },
 
     reviewsByIsbn: async (parent,  { isbn }) => {
@@ -158,11 +158,11 @@ const resolvers = {
           //  Delete Review from User
           // Delete review from rpoduct
               // Delete Review from review
-          const updateProduct = await Product.findByIdAndUpdate(
-               { _id: context.user._id },
-               { $pull: { reviews: review._id } },
-               { new: true }
-             );
+          // const updateProduct = await Product.findByIdAndUpdate(
+          //      { _id: context.user._id },
+          //      { $pull: { reviews: review._id } },
+          //      { new: true }
+          //    );
      
              return updateUser;
        }
