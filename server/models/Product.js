@@ -1,18 +1,15 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-// This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedProducts` array in User.js
-const productSchema = new Schema({
-  // authors: [
-  //   {
-  //     type: String,
-  //   },
-  // ],
+const reviewSchema = require('./Review');
+
+const productSchema = new Schema(
+  {
   description: {
     type: String,
     required: true,
   },
-  // saved product id 
-  productId: {
+  // saved api id 
+  isbn: {
     type: String,
     required: true,
   },
@@ -26,49 +23,10 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  // Alan add this
+  reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
 });
-const ReviewSchema = new Schema(
-  {
-    productId: {
-      type: String,
-      required: true,
-    },
-    userId: {
-      type: String,
-      required: true,
-    },
-    reviewId:{
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId()
-    },
-    reviewText:{
-      type: String,
-      required: true,
-      maxLength: 280,
-    },
-    rating:{
-      type: String,
-      required: true,
-      minLength: 1,
-      maxLength: 5,
-    },
-    recommended: {
 
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: createdAtVal => dateFormat(createdAtVal)
-    },
-  },
-  {
-    toJSON: {
-      virtuals: true,
-      getters: true
-    },
-    // prevents virtuals from creating duplicate of _id as `id`
-    id: false
-  }
-)
+const Product = model('Product', productSchema);
 
-module.exports = productSchema;
+module.exports = Product;
