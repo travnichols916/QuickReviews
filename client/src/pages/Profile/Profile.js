@@ -48,35 +48,52 @@ const Profile = () => {
                 >
                     {/*User Information */}
                     <Grid
-                    container>
+                    container
+                    sx={gridSectionStyles}>
                         <Stack>
                         <Box
-                        item>
+                        item
+                        sx={gridStyles}>
                             <Typography variant="h2" component="div" sx={{ flexGrow: 1 }}>User Information</Typography>
                         </Box>
-                        <Box>
+                        <Box
+                        item
+                        sx={gridStyles}>
                             <Grid>
-                                <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+                                <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} item
+                        sx={gridStyles}>
                                     <Box sm={6} md={4} lg={3}>Username</Box>
                                     <Box sm={6} md={8} lg={9}>Your Username</Box>
                                 </Stack>
-                                <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+                                <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} item
+                        sx={gridStyles}>
                                     <Box>Email</Box>
                                     <Box>Your Email</Box>
                                 </Stack>
-                                <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+                                <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} item
+                        sx={gridStyles}>
                                     <Button variant='outline'>Change Username</Button>
                                     <Button variant='outline'>Change Email</Button>
                                     <Button variant='outline'>Change Password</Button>
                                 </Stack>
                             </Grid>
                         </Box>
+                        </Stack>
+                    </Grid>
+
                     {/*My Reviews */}
+                    <Grid
+                    container
+                    sx={gridSectionStyles}>
+                        <Stack>
                         <Box
-                        item>
+                        item
+                        sx={gridStyles}>
                             <Typography variant="h2" component="div" sx={{ flexGrow: 1 }}>My Reviews</Typography>
                         </Box>
-                        <Box>
+                        <Box
+                        item
+                        sx={gridStyles}>
                             <Stack>
                                 {/*Individual Reviews*/}
                                 <ProfileIndivReview />
@@ -84,8 +101,6 @@ const Profile = () => {
                         </Box>
                         </Stack>
                     </Grid>
-
-
 
                 </Grid>
             </ContainerStyled>

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Auth from '../../utils/auth';
-import { saveBook, searchGoogleBooks } from '../../utils/API';
-import { saveBookIds, getSavedBookIds } from '../../utils/localStorage';
 
 import {
   Container,
@@ -38,7 +36,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import {gridSectionStyles, gridStyles, imageStyles, linkStyles, navBarBGStyles} from './NavbarStyles.js';
 import { borderBottom, textAlign } from '@mui/system';
-
+import { useQuery } from '@apollo/client';
+import { SEARCH_PRODUCTS } from '../../utils/queries';
 
 const BoxBackground = styled(Box)(({ theme }) => ({
   paddingTop: '2rem',
@@ -164,74 +163,42 @@ const theme = createTheme();
 
 // The NavBar itself
 const AppNavbar = () => {
-    // create state for holding returned google api data
-    const [searchedBooks, setSearchedBooks] = useState([]);
-    // create state for holding our search field data
-    const [searchInput, setSearchInput] = useState('');
-    // create state to hold saved bookId values
-    const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+  const [formState, setFormState] = useState({ title: '' });
 
-    useEffect(() => {
-        return () => saveBookIds(savedBookIds);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value
     });
+  };
 
-    // create method to search for books and set state on form submit
-    const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    if (!searchInput) {
-      return false;
-    }
-
-    try {
-      const response = await searchGoogleBooks(searchInput);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { items } = await response.json();
-
-      const bookData = items.map((book) => ({
-        bookId: book.id,
-        authors: book.volumeInfo.authors || ['No author to display'],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || '',
-      }));
-
-      setSearchedBooks(bookData);
-      setSearchInput('');
-    } catch (err) {
-      console.error(err);
-    }
-    };
-
-    // create function to handle saving a book to our database
-    const handleSaveBook = async (bookId) => {
-    // find the book in `searchedBooks` state by the matching id
-    const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
+    const book = formState.title;
+    const bookTitle = book.replace(' ', '%20');
+    const requestUrl = `https://www.googleapis.com/books/v1/volumes?q=${bookTitle}`
 
     try {
-      const response = await saveBook(bookToSave, token);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
-    } catch (err) {
-      console.error(err);
+      console.log(book)
+      fetch(requestUrl)
+        .then(function(response) {
+          return response.json()
+        })
+        .then(function(data) {
+          console.log(data)
+          console.log(data.items.length)
+          return data;
+        })
+    } catch (e) {
+      console.error(e);
     }
-    };
+
+    setFormState({
+      title: ''
+    });
+  }
   
     return (
       <>
@@ -268,13 +235,15 @@ const AppNavbar = () => {
         item
         xs={6} sm={3}
         >
-          <FormControl>
+          <form
+          onSubmit={(e) => handleFormSubmit(e)}>
             <TextField variant='standard'
-            id='searchInput'
+            id='title'
+            name='title'
             placeholder='Search for a book'
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}></TextField>
-          </FormControl>
+            value={formState.title}
+            onChange={(e) => handleChange(e)}></TextField>
+          
           <Button
             type='submit'
             variant='success' 
@@ -283,8 +252,10 @@ const AppNavbar = () => {
               marginLeft: '0px',
               padding: '3.5px',
             }}
-            id='searchInputBtn'
+            id='titleBtn'
           >Search</Button>
+
+          </form>
         </Grid>
           
 
