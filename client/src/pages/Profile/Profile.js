@@ -39,9 +39,15 @@ const Profile = () => {
     const [dataIndivReviews, setIndivReviews] = React.useState([
       {
         rating: 5,
-        bookTitle: 'Artemis Fowl',
+        bookTitle: 'Arte Fowler',
         reviewTitle: 'The main character is the villain!',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do'
+      },
+      {
+        rating: 1,
+        bookTitle: 'A Series of Unfortunate Events',
+        reviewTitle: `The Only "Unfortunate" Event Is Having To Read This Book!`,
+        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do`
       }
     ])
     
@@ -64,6 +70,7 @@ const Profile = () => {
     );
   }
 
+  //maps the reviews so that the information all displays
   const profileIndivReviews = (reviews) => {
     return (
       <Box>
@@ -71,19 +78,20 @@ const Profile = () => {
         return (
           <Box>
           <Stack container direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
-          <Box item>
-              <Typography variant='h6'>
+          <Box item sx={gridStyles}>
+              <Typography variant='h5'>
               {review.bookTitle}
               </Typography>    
               <Typography variant='h6'>
               {review.reviewTitle} - {review.rating}/5 Stars!
               </Typography>
           </Box>
-          <Button item>Delete</Button>
+          {/*onClick={handleDelete}*/}
+          <Button>Delete</Button>
       </Stack>
       <Stack>
-          <Box>
-              <Typography>
+          <Box item sx={gridStyles}>
+              <Typography paragraph='true'>
               {review.description}
               </Typography>
           </Box>
@@ -130,7 +138,7 @@ const Profile = () => {
                                     <Box>Email</Box>
                                     <Box>{data.me.email}</Box>
                                 </Stack>
-                                <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} item
+                                <Stack direction='row' spacing={{xs:0, sm:2}} divider={<Divider orientation='vertical' flexItem />} item
                         sx={gridStyles}>
                                     <Button variant='outline'>Change Username</Button>
                                     <Button variant='outline'>Change Email</Button>
