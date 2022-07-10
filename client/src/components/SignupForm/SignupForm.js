@@ -1,109 +1,102 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+
+import {
+  Container,
+  Link,
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  FormControl,
+  FormGroup,
+  Grid,
+  FormControlLabel,
+  Checkbox,
+  Input,
+  InputLabel,
+  TextField,
+  Stack
+} from '@mui/material'
+import { styled  } from '@mui/material/styles';
+import { lightBlue } from '@mui/material/colors';
+import DensitySmallIcon from '@mui/icons-material/DensitySmall';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
+import { borderBottom, textAlign } from '@mui/system';
+
 import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../utils/mutations';
+import { ADD_USER } from '../../utils/mutation';
 
 import Auth from '../../utils/auth';
 
 const SignupForm = () => {
-  // set initial form state
-  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
-  // set state for form validation
+  const [formState, setFormState] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+  const [addUser, { error }] = useMutation(ADD_USER);
   const [validated] = useState(false);
-  // set state for alert
-  const [showAlert, setShowAlert] = useState(false);
 
-  const handleInputChange = (event) => {
+  // update state based on form input changes
+  const handleChange = (event) => {
     const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
+  // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
+    console.log('hello')
     try {
-      const response = await createUser(userFormData);
+      const { data } = await addUser({
+        variables: { ...formState },
+      });
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
-    } catch (err) {
-      console.error(err);
-      setShowAlert(true);
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error(e);
     }
-
-    setUserFormData({
-      username: '',
-      email: '',
-      password: '',
-    });
   };
 
   return (
     <>
-      {/* This is needed for the validation functionality above */}
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        {/* show alert if server response is bad */}
-        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your signup!
-        </Alert>
+      <Grid>
+          {/* Div to Hold */}
+          <form
+          validated={validated}
+          onSubmit={(e) => handleFormSubmit(e)}
+          >
 
-        <Form.Group>
-          <Form.Label htmlFor='username'>Username</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Your username'
-            name='username'
-            onChange={handleInputChange}
-            value={userFormData.username}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Username is required!</Form.Control.Feedback>
-        </Form.Group>
+            {/* Inputs */}
+            <Stack>
+              {/* Email */}
+              <TextField id='email' name='email' value={formState.email} onChange={(e) => handleChange(e)} label="Email" variant="standard" required></TextField>
+              
+              {/* Username */}
+              <TextField id='username' name='username' value={formState.username} onChange={(e) => handleChange(e)} label="Username" variant="standard" required></TextField>
 
-        <Form.Group>
-          <Form.Label htmlFor='email'>Email</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Your email address'
-            name='email'
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
-        </Form.Group>
+              {/* Password */}
+              <TextField id='password' name='password' value={formState.password} onChange={(e) => handleChange(e)} label="Password" variant="standard" required></TextField>
 
-        <Form.Group>
-          <Form.Label htmlFor='password'>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Your password'
-            name='password'
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
-        </Form.Group>
-        <Button
-          disabled={!(userFormData.username && userFormData.email && userFormData.password)}
-          type='submit'
-          variant='success'>
-          Submit
-        </Button>
-      </Form>
+              {/* Submit Button */}
+              <Button 
+              disabled={!formState.email && !formState.username && !formState.password} 
+              type="submit" 
+              label='Sign Up'>
+                Sign Up
+              </Button>
+            </Stack>
+          
+          </form>
+          
+
+    </Grid>
     </>
   );
 };

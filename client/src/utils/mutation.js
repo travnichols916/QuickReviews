@@ -19,7 +19,7 @@ mutation login ($email: String!, $password: String!)
     token
     user{email, password}
   }
-};
+}
 `
 // SAVE_PRODUCT 
 export const SAVE_PRODUCT= gql `
