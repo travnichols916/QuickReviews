@@ -128,8 +128,6 @@ const resolvers = {
           );
 //           dateCreated: null
 // productIsbn: null
-// productTitle: null
-// rating: null
 // recommend: null
 // reviewText: null
 // reviewTitle: null
