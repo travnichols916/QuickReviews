@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
@@ -36,9 +36,6 @@ const Profile = () => {
     const { loading, error, data } = useQuery(QUERY_ME);
 
     console.log(data);
-    const reviewsArray = data.me.reviews;
-
-    console.log(reviewsArray);
 
     if (!Auth.loggedIn) {
       return (
@@ -116,7 +113,7 @@ const Profile = () => {
                         sx={gridStyles}>
                             <Stack>
                                 {/*Individual Reviews*/}
-                                {profileIndivReviews(reviewsArray)}
+                                {profileIndivReviews(data.me.reviews)}
                             </Stack>
                         </Box>
                         </Stack>
