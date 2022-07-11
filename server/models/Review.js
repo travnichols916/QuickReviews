@@ -11,7 +11,7 @@ const reviewSchema = new Schema(
         maxLength: 280,
       },
     rating:{
-        type: String,
+        type: Int,
         required: true,
         minLength: 0,
         maxLength: 5,
