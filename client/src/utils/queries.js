@@ -53,7 +53,7 @@ query User($username: String!) {
 `;
 
 export const REVIEW_BY_ISBN = gql `
-query ReviewsByIsbn($productIsbn: String!) {
+query ReviewsByIsbn( $productIsbn: String! ) {
   reviewsByIsbn(productIsbn: $productIsbn) {
     _id
     productIsbn

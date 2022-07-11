@@ -78,7 +78,6 @@ const Product = () => {
   // const { loading, data: isbn_data } = useQuery(REVIEW_BY_ISBN, {
   //   variables: { productIsbn: productData.isbn }
   // });
-
   // console.log("isbn_data: ", isbn_data)
   // const [dataReviews, setDataReviews] = React.useState(isbn_data)
 
