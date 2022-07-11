@@ -4,14 +4,14 @@ const reviewSchema = new Schema(
     {
     productIsbn: { type: String },
     productTitle: { type: String},
-    reviewTitle:  { type: String, },
+    reviewTitle:  { type: String },
     reviewText:{
         type: String,
         required: true,
         maxLength: 280,
       },
     rating:{
-        type: Int,
+        type: Number,
         required: true,
         minLength: 0,
         maxLength: 5,
