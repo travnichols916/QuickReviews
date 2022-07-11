@@ -9,7 +9,7 @@
  <img src="https://img.shields.io/badge/Node.js-43853D?style=flat&logo=node.js&logoColor=white" alt="NodeJS Badge"/>
  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=flat&logo=mongodb&logoColor=white" alt="MongoDB Badge"/>
  <img src="https://img.shields.io/badge/GraphQL-171e26?style=flat&logo=GraphQL&logoColor=e10098" alt="GraphQL Badge"/>
- <img src="https://simpleicons.org/?q=material%20ui-" alt="Material UI Badge">
+ <img src="https://img.shields.io/badge/MUI-0A1929?style=flat&logo=MUI&logoColor=007FFF" alt="MUI Badge"/>
 </div>
 
 
