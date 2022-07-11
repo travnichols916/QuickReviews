@@ -75,10 +75,12 @@ const Product = () => {
   const [productData, setProductData] = useState(getSelectBook);
 
   console.log("productData: ",  productData)
+  console.log(typeof productData.isbn)
   const { loading, isbn_data } = useQuery(REVIEW_BY_ISBN, {
     variables: { productIsbn: productData.isbn }
   });
   console.log("isbn_data: ", isbn_data)
+
   const [dataReviews, setDataReviews] = React.useState(isbn_data)
 
   console.log("dataReviews: ", dataReviews)
