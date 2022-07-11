@@ -74,44 +74,45 @@ const Product = () => {
   const [submittedValue, setSubmittedValue] = React.useState(false);
   const [productData, setProductData] = useState(getSelectBook);
 
-  console.log("productData: ",  productData)
-  const { loading, isbn_data } = useQuery(REVIEW_BY_ISBN, {
-    variables: { productIsbn: productData.isbn }
-  });
-  console.log("isbn_data: ", isbn_data)
-  const [dataReviews, setDataReviews] = React.useState(isbn_data)
+  // console.log("productData: ",  productData)
+  // const { loading, data: isbn_data } = useQuery(REVIEW_BY_ISBN, {
+  //   variables: { productIsbn: productData.isbn }
+  // });
 
-  console.log("dataReviews: ", dataReviews)
-  // const [dataReviews, setDataReviews] = React.useState([
-  //   {
-  //     username: "MissingNo.",
-  //     rating: 1,
-  //     title: "Lorem ipsum dolor sit amet.",
-  //     comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  //     recommended: false
-  //   },
-  //   {
-  //     username: "Tom",
-  //     rating: 4,
-  //     title: "Great bait.",
-  //     comment: "Worked as intended to lure stuff.",
-  //     recommended: true
-  //   },
-  //   {
-  //     username: "Jerry",
-  //     rating: 2,
-  //     title: "Definitely did not like product.",
-  //     comment: "Did not taste like cheese.",
-  //     recommended: false
-  //   },
-  //   {
-  //     username: "Rock",
-  //     rating: 4.5,
-  //     title: "Great product.",
-  //     comment: "Amazingly hard cheese.",
-  //     recommended: true
-  //   }
-  // ]);
+  // console.log("isbn_data: ", isbn_data)
+  // const [dataReviews, setDataReviews] = React.useState(isbn_data)
+
+  // console.log("dataReviews: ", dataReviews)
+  const [dataReviews, setDataReviews] = React.useState([
+    {
+      username: "MissingNo.",
+      rating: 1,
+      reviewTitle: "Lorem ipsum dolor sit amet.",
+      reviewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      recommended: false
+    },
+    {
+      username: "Tom",
+      rating: 4,
+      reviewTitle: "Great bait.",
+      reviewText: "Worked as intended to lure stuff.",
+      recommended: true
+    },
+    {
+      username: "Jerry",
+      rating: 2,
+      reviewTitle: "Definitely did not like product.",
+      reviewText: "Did not taste like cheese.",
+      recommended: false
+    },
+    {
+      username: "Rock",
+      rating: 4.5,
+      reviewTitle: "Great product.",
+      reviewText: "Amazingly hard cheese.",
+      recommended: true
+    }
+  ]);
 
 
   const [ addReview, { error }] = useMutation(ADD_REVIEW);
@@ -132,9 +133,9 @@ const Product = () => {
                 <Box component="span">{review.username}</Box>
                 <Box sx={{display: 'flex', alignItems: 'center'}}>
                   <Rating name="half-rating-read" value={review.rating ? review.rating : 0} precision={0.5} readOnly />
-                  <Box component="span" sx={{ml: 1, fontWeight: 'bold'}}>{review.title}</Box>
+                  <Box component="span" sx={{ml: 1, fontWeight: 'bold'}}>{review.reviewTitle}</Box>
                 </Box>
-                <Box component="p">{review.comment}</Box>
+                <Box component="p">{review.reviewText}</Box>
                 { review.recommended ? 
                   <Box>
                     <ThumbUpIcon fontSize="small" /><Box component="span" sx={reviewRecStyles}>Recommended</Box>
