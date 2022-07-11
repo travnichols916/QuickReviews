@@ -6,13 +6,13 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      password
       productCount
-      reviews {
+      savedProducts
+      reviews{
         _id
-        isbn
-        productTitle
-        reviewTitle
+        productIsbn
+        reviewFormTitle
+        password
         userId
         reviewText
         rating
@@ -31,10 +31,18 @@ query User($username: String!) {
     email
     password
     productCount
-    review {
+    savedProducts{
+      _id
+      title
+      authors
+      description
+      image
+      link
+    }
+    reviews {
       _id
       productIsbn
-      reviewTitle
+      reviewFormTitle
       userId
       reviewText
       rating
