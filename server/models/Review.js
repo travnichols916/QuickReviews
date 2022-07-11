@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 const reviewSchema = new Schema(
     {
@@ -16,7 +17,7 @@ const reviewSchema = new Schema(
         minLength: 0,
         maxLength: 5,
       },
-      recommended: {Boolean},
+      recommended: { type: Boolean },
       dateCreated: {
         type: Date,
         default: Date.now,

@@ -60,7 +60,7 @@ type Mutation {
 
       addReview(productIsbn: String!, productTitle: String!, reviewTitle: String!, reviewText: String!, rating: Float!, recommended: Boolean!) : User
       updateReview(productId: ID!, reviewId: ID!): User
-      deleteReview(productId: ID!, reviewid: ID!): User
+      deleteReview(productId: ID!, reviewId: ID!): User
  }
 `;
 
