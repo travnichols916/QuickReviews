@@ -18,23 +18,24 @@ query User($username: String!) {
     email
     password
     productCount
-    savedProducts{
+    savedProducts {
       _id
       title
       authors
       description
       image
       link
-    }
-    reviews {
-      _id
-      productIsbn
-      reviewFormTitle
-      userId
-      reviewText
-      rating
-      recommended
-      dateCreated
+      reviews {
+        _id
+        productIsbn
+        productTitle
+        reviewTitle
+        userId
+        reviewText
+        rating
+        recommended
+        dateCreated
+      }
     }
   }
 }
