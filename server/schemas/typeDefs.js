@@ -25,6 +25,7 @@ type Product {
 type Review {
     _id: ID
     productIsbn: String
+    productTitle: String
     reviewTitle: String
     userId: ID
     reviewText: String
