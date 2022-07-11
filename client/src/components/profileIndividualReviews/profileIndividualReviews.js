@@ -56,7 +56,7 @@ import {gridSectionStyles, gridStyles, imageStyles, linkStyles} from './ProfileS
       </Stack>
       <Stack>
           <Box item sx={gridStyles}>
-              <Typography paragraph='true'>
+              <Typography>
               {review.description}
               </Typography>
           </Box>
