@@ -2,20 +2,20 @@ const { Schema, model } = require('mongoose');
 
 const reviewSchema = new Schema(
     {
-     productIsbn: { type: String },
+    productIsbn: { type: String },
     productTitle: { type: String},
     reviewTitle:  { type: String, },
     reviewText:{
         type: String,
         required: true,
         maxLength: 280,
-      },
+    },
     rating:{
         type: String,
         required: true,
         minLength: 0,
         maxLength: 5,
-      },
+    },
       recommended: {Boolean},
       createdAt: {
         type: Date,
