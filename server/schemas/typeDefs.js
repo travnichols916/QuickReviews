@@ -15,7 +15,7 @@ type User {
 type Product {
     _id: ID
     title: String
-    authors: [String]
+    authors: String
     description: String
     image: String
     link: String
@@ -24,7 +24,7 @@ type Product {
 
 type Review {
     _id: ID
-    isbn: String
+    productIsbn: String
     reviewTitle: String
     userId: ID
     reviewText: String

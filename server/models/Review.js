@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const reviewSchema = new Schema(
     {
-     productIsbn: { type: String },
+    productIsbn: { type: String },
     productTitle: { type: String},
     reviewTitle:  { type: String, },
     reviewText:{
@@ -17,7 +17,7 @@ const reviewSchema = new Schema(
         maxLength: 5,
       },
       recommended: {Boolean},
-      createdAt: {
+      dateCreated: {
         type: Date,
         default: Date.now,
         get: createdAtVal => dateFormat(createdAtVal)
