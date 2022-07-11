@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { QUERY_ME } from '../../utils/queries';
+import { QUERY_ME, QUERY_ME_REVIEW, USER_QUERY } from '../../utils/queries';
 import Auth from '../../utils/auth';
+import { getSearchedBookIds } from '../../utils/localStorage';
+import profileIndivReviews from '../../components/profileIndividualReviews';
 
 import {
     CssBaseline,
@@ -50,7 +52,7 @@ const Profile = () => {
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do`
       }
     ])
-    
+
     console.log(data);
 
     if (loading) {
@@ -68,40 +70,6 @@ const Profile = () => {
         sign up or log in!
       </h4>
     );
-  }
-
-  //maps the reviews so that the information all displays
-  const profileIndivReviews = (reviews) => {
-    return (
-      <Box>
-      {reviews.map((review, index) => {
-        return (
-          <Box>
-          <Stack container direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
-          <Box item sx={gridStyles}>
-              <Typography variant='h5'>
-              {review.productTitle}
-              </Typography>    
-              <Typography variant='h6'>
-              {review.reviewTitle} - {review.rating}/5 Stars!
-              </Typography>
-          </Box>
-          {/*onClick={handleDelete}*/}
-          <Button>Delete</Button>
-      </Stack>
-      <Stack>
-          <Box item sx={gridStyles}>
-              <Typography paragraph='true'>
-              {review.description}
-              </Typography>
-          </Box>
-      </Stack>
-      </Box>
-        )
-      })}
-      </Box>
-      
-    )
   }
 
     return (

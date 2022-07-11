@@ -12,6 +12,7 @@ export const QUERY_ME = gql`
         _id
         productIsbn
         reviewFormTitle
+        password
         userId
         reviewText
         rating
@@ -49,5 +50,6 @@ query User($username: String!) {
       dateCreated
     }
   }
-}`
+}
+`;
 

@@ -21,7 +21,10 @@ import {
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { styled  } from '@mui/material/styles';
+import { getSelectBook } from '../../utils/localStorage';
 
+import { useMutation } from '@apollo/client';
+import { ADD_REVIEW } from '../../utils/mutation';
 import Auth from '../../utils/auth';
 
 import {gridSectionStyles, gridStyles, imageStyles, reviewWrapStyles, reviewRecStyles} from './ProductStyles.js';
@@ -44,9 +47,13 @@ const labels = {
   2.5: 'Below Average',
   3: 'Average',
   3.5: 'Above Average',
-  4: 'Above Average',
+  4: 'Very Good',
   4.5: 'Excellent',
   5: 'Amazing',
+};
+const recommendedLabels = {
+  0: 'Not Recommended',
+  1: 'Recommended',
 };
 
 function getLabelText(value) {
@@ -59,16 +66,13 @@ const Product = () => {
   const [tabReviewValue, setTabReviewValue] = React.useState('1');
   const [reviewerStarValue, setReviewerStarValue] = React.useState(0.5);
   const [reviewerStarHover, setReviewerStarHover] = React.useState(-1);
+  const [reviewerRecValue, setReviewerRecValue] = React.useState(0);
+  const [reviewerRecHover, setReviewerRecHover] = React.useState(-1);
   const [titleValue, setTitleValue] = React.useState('');
   const [commentValue, setCommentValue] = React.useState('');
   const [submittedValue, setSubmittedValue] = React.useState(false);
+  const [productData, setProductData] = useState(getSelectBook);
 
-  const [productData, setProductData] = useState({
-    title: "Name of Product",
-    rating: "4.5",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  });
-  
   const [dataReviews, setDataReviews] = React.useState([
     {
       username: "MissingNo.",
@@ -100,6 +104,8 @@ const Product = () => {
     }
   ]);
 
+  const [ addReview, { error }] = useMutation(ADD_REVIEW);
+
   const handleTabReviewChange = (event, newValue) => {
     event.preventDefault();
     setTabReviewValue(newValue);
@@ -115,7 +121,7 @@ const Product = () => {
               <Stack key={index} spacing={0.5} sx={reviewWrapStyles}>
                 <Box component="span">{review.username}</Box>
                 <Box sx={{display: 'flex', alignItems: 'center'}}>
-                  <Rating name="half-rating-read" value={review.rating} precision={0.5} readOnly />
+                  <Rating name="half-rating-read" value={review.rating ? review.rating : 0} precision={0.5} readOnly />
                   <Box component="span" sx={{ml: 1, fontWeight: 'bold'}}>{review.title}</Box>
                 </Box>
                 <Box component="p">{review.comment}</Box>
@@ -134,11 +140,44 @@ const Product = () => {
     )
   };
 
-  const handleReviewFormSubmit = (event) => {
+  const handleReviewFormSubmit = async (event) => {
     event.preventDefault();
     console.log("Submit button titleValue: ", titleValue);
     console.log("Submit button reviewerStarValue: ", reviewerStarValue);
     console.log("Submit button commentValue: ", commentValue)
+
+    const recommended = (reviewerRecValue === 1)
+
+    console.log("productData: ", productData);
+    const reviewToSave = {
+      productIsbn: productData.isbn,
+      productTitle: productData.title,
+      reviewTitle: titleValue,
+      reviewText: commentValue,
+      rating: reviewerStarValue,
+      recommended: recommended,
+    }
+    console.log("reviewToSave: ", reviewToSave)
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const response = await addReview({
+        variables: reviewToSave
+      })
+
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
+
+      setSubmittedValue(true);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const buildReviewerForm = () => {
@@ -187,8 +226,31 @@ const Product = () => {
               placeholder="Comment"
               onChange={(event) => setCommentValue(event.target.value)}
             />
+            <Box sx={{mt: 0.5, display: 'flex', alignItems: 'center'}}>
+              <Rating name="recommended" 
+                defaultValue={0} 
+                precision={1} 
+                max={1}
+                getLabelText={getLabelText}
+                icon={<ThumbUpIcon fontSize="small" />}
+                emptyIcon={<ThumbDownIcon fontSize="small" />}
+                onChange={(event, newValue) => {
+                  if(newValue === null){
+                    newValue = 0
+                  };
+                  setReviewerRecValue(newValue);
+                }}
+                onChangeActive={(event, newHover) => {
+                  setReviewerRecHover(newHover);
+                }}
+                // emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+              />
+              {reviewerRecValue !== null && (
+                <Box sx={{ ml: 2, mb: '0.5rem', alignItems: 'center' }}>{recommendedLabels[reviewerRecHover !== -1 ? reviewerRecHover : reviewerRecValue]}</Box>
+              )}
+            </Box>
             <Button sx={{mt: 0.5}} variant="contained" type="submit">Submit</Button>
-            {submittedValue === true && (<Box component="span">Submitted</Box>)}
+            {submittedValue === true && (<Box component="span">Submitted Review</Box>)}
           </Stack>
         </Box>
       </Stack>
@@ -222,18 +284,18 @@ const Product = () => {
             >
               <Grid item sx={gridStyles} xs={12} md={5}>
                 <Box component="img" sx={imageStyles}
-                  src='https://via.placeholder.com/1200x700'
-                  alt=''
+                  src={productData.image}
+                  alt={productData.title}
                 />
               </Grid>
               <Grid item sx={gridStyles} xs={12} md={7}>
                 <Stack spacing={1}>
                   <Box component="h3">Product description
                   </Box>
-                    {productData.rating !== "" && (
+                    {productData.averageRating !== "" && (
                       <Box sx={{display: 'flex', alignItems: 'center'}}>
-                        <Rating name="half-rating-read" defaultValue={Number(productData.rating)} precision={0.5} size="large" readOnly />
-                        <Box sx={{ ml: 1, alignItems: 'center' }}>{labels[productData.rating]}</Box>
+                        <Rating name="half-rating-read" defaultValue={productData.averageRating ? productData.averageRating : 0} precision={0.5} size="large" readOnly />
+                        <Box sx={{ ml: 1, alignItems: 'center' }}>{labels[productData.averageRating]}</Box>
                       </Box>
                     )}
                   <Box component="p">{productData.description}</Box>
