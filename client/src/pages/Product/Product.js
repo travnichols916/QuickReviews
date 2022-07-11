@@ -146,6 +146,8 @@ const Product = () => {
     console.log("Submit button reviewerStarValue: ", reviewerStarValue);
     console.log("Submit button commentValue: ", commentValue)
 
+    const recommended = (reviewerRecValue === 1)
+
     console.log("productData: ", productData);
     const reviewToSave = {
       productIsbn: productData.isbn,
@@ -153,7 +155,7 @@ const Product = () => {
       reviewTitle: titleValue,
       reviewText: commentValue,
       rating: reviewerStarValue,
-      recommended: reviewerRecValue,
+      recommended: recommended,
     }
     console.log("reviewToSave: ", reviewToSave)
     // get token
@@ -165,7 +167,7 @@ const Product = () => {
 
     try {
       const response = await addReview({
-        variables: { reviewToSave }
+        variables: reviewToSave
       })
 
       if (!response.ok) {
