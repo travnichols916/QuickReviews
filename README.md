@@ -14,7 +14,7 @@
 
 
 ### Heroku Deployment
-Future Deployment(here)
+[Deployed to Heroku](https://quick-reviews.herokuapp.com/)
 ![Heroku](./readMeAssets/)
 
 
@@ -79,7 +79,7 @@ Our motivations include are to replicate successful websites such as GoodReads s
 
 * [Alan Anibal](https://github.com/alananibal)
 * [Eric Ng](https://github.com/EricNg314)
-* [Libin Wang] (https://github.com/ten-gou)
+* [Libin Wang](https://github.com/ten-gou)
 * [Travis Nichols](https://github.com/travnichols916/)
 
 
