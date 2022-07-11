@@ -34,22 +34,10 @@ import {gridSectionStyles, gridStyles} from './ProfileStyles';
 
 const Profile = () => {
     const { loading, error, data } = useQuery(QUERY_ME);
-    const [dataIndivReviews, setIndivReviews] = React.useState([
-      {
-        rating: 5,
-        productTitle: 'Arte Fowler',
-        reviewTitle: 'The main character is the villain!',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do'
-      },
-      {
-        rating: 1,
-        productTitle: 'A Series of Unfortunate Events',
-        reviewTitle: `The Only "Unfortunate" Event Is Having To Read This Book!`,
-        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do`
-      }
-    ])
+    console.log(data)
+    const reviewsArray = data.me.reviews;
 
-    console.log(data);
+    console.log(reviewsArray);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -128,7 +116,7 @@ const Profile = () => {
                         sx={gridStyles}>
                             <Stack>
                                 {/*Individual Reviews*/}
-                                {profileIndivReviews(dataIndivReviews)}
+                                {profileIndivReviews(reviewsArray)}
                             </Stack>
                         </Box>
                         </Stack>

@@ -6,6 +6,17 @@ export const QUERY_ME = gql`
       _id
       username
       email
+      reviews {
+      _id
+      productIsbn
+      productTitle
+      reviewTitle
+      userId
+      reviewText
+      rating
+      recommended
+      dateCreated
+    }
     }
   }
 `;
