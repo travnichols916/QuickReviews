@@ -71,7 +71,7 @@ mutation AddReview($productIsbn: String!, $productTitle: String!, $reviewTitle: 
       reviewText
       rating
       recommend
-      createdAt
+      dateCreated
     }
   }
 }
