@@ -10,7 +10,7 @@ const reviewSchema = new Schema(
         type: String,
         required: true,
         maxLength: 280,
-      },
+    },
     rating:{
         type: Number,
         required: true,
@@ -19,6 +19,7 @@ const reviewSchema = new Schema(
       },
       recommended: { type: Boolean },
       dateCreated: {
+
         type: Date,
         default: Date.now,
         get: createdAtVal => dateFormat(createdAtVal)
