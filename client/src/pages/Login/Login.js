@@ -10,10 +10,6 @@ import {
     Stack,
   } from '@mui/material'
 
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-// import StarIcon from '@mui/icons-material/Star';
 import { styled  } from '@mui/material/styles';
 import { lightBlue } from '@mui/material/colors';
 

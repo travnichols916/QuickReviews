@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Auth from '../../utils/auth';
 
 import {
-  Container,
   Link,
   AppBar,
-  Box,
-  Toolbar,
   Button,
   Grid,
   TextField,
@@ -15,26 +12,11 @@ import {
   FormControlLabel,
   Checkbox
 } from '@mui/material'
-import { styled  } from '@mui/material/styles';
-import { lightBlue } from '@mui/material/colors';
 import DensitySmallIcon from '@mui/icons-material/DensitySmall';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
-import {gridSectionStyles, gridStyles, imageStyles, linkStyles, navBarBGStyles} from './NavbarStyles.js';
-import { borderBottom, textAlign } from '@mui/system';
+import {linkStyles, navBarBGStyles} from './NavbarStyles.js';
 import { searchGoogleBooks } from '../../utils/API';
-
-const BoxBackground = styled(Box)(({ theme }) => ({
-  paddingTop: '2rem',
-  paddingBottom: '3rem',
-  background: 'rgb(240, 240, 255)'
-}));
-
-const ContainerStyled = styled(Container)(({ theme }) => ({
-  status: {
-    background: lightBlue,
-  },
-}));
 
 // The Collapsing Left Side of the Navbar FXN
 const CollapseFunction = () => {
@@ -241,17 +223,12 @@ const AppNavbar = () => {
 
         <Grid
         item
-        xs={3} sm={3}>
+        xs={3} sm={3}
+        direction='horizontal'>
           {/* Login/Signup Buttons or ViewProfile/Logout Buttons*/}
-          <Grid
-          container
-          direction='horizontal'>
-
             <ThemeProvider theme={theme}>
               <CollapseFunction />
             </ThemeProvider>
-
-          </Grid>
         </Grid>
 
 
