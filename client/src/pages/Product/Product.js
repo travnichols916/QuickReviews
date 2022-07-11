@@ -24,7 +24,7 @@ import { styled  } from '@mui/material/styles';
 import { getSelectBook } from '../../utils/localStorage';
 
 import { useMutation, useQuery } from '@apollo/client';
-// import { QUERY_ISBN } from '../../utils/queries';
+import { REVIEW_BY_ISBN } from '../../utils/queries';
 import { ADD_REVIEW } from '../../utils/mutation';
 import Auth from '../../utils/auth';
 
@@ -74,41 +74,45 @@ const Product = () => {
   const [submittedValue, setSubmittedValue] = React.useState(false);
   const [productData, setProductData] = useState(getSelectBook);
 
+  console.log("productData: ",  productData)
+  const { loading, isbn_data } = useQuery(REVIEW_BY_ISBN, {
+    variables: { productIsbn: productData.isbn }
+  });
+  console.log("isbn_data: ", isbn_data)
+  const [dataReviews, setDataReviews] = React.useState(isbn_data)
 
-  // const { loading, isbn_data } = useQuery(QUERY_ISBN);
-  // const [dataReviews, setDataReviews] = React.useState(isbn_data)
+  console.log("dataReviews: ", dataReviews)
+  // const [dataReviews, setDataReviews] = React.useState([
+  //   {
+  //     username: "MissingNo.",
+  //     rating: 1,
+  //     title: "Lorem ipsum dolor sit amet.",
+  //     comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  //     recommended: false
+  //   },
+  //   {
+  //     username: "Tom",
+  //     rating: 4,
+  //     title: "Great bait.",
+  //     comment: "Worked as intended to lure stuff.",
+  //     recommended: true
+  //   },
+  //   {
+  //     username: "Jerry",
+  //     rating: 2,
+  //     title: "Definitely did not like product.",
+  //     comment: "Did not taste like cheese.",
+  //     recommended: false
+  //   },
+  //   {
+  //     username: "Rock",
+  //     rating: 4.5,
+  //     title: "Great product.",
+  //     comment: "Amazingly hard cheese.",
+  //     recommended: true
+  //   }
+  // ]);
 
-
-  const [dataReviews, setDataReviews] = React.useState([
-    {
-      username: "MissingNo.",
-      rating: 1,
-      title: "Lorem ipsum dolor sit amet.",
-      comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      recommended: false
-    },
-    {
-      username: "Tom",
-      rating: 4,
-      title: "Great bait.",
-      comment: "Worked as intended to lure stuff.",
-      recommended: true
-    },
-    {
-      username: "Jerry",
-      rating: 2,
-      title: "Definitely did not like product.",
-      comment: "Did not taste like cheese.",
-      recommended: false
-    },
-    {
-      username: "Rock",
-      rating: 4.5,
-      title: "Great product.",
-      comment: "Amazingly hard cheese.",
-      recommended: true
-    }
-  ]);
 
   const [ addReview, { error }] = useMutation(ADD_REVIEW);
 
@@ -122,7 +126,7 @@ const Product = () => {
       <Stack spacing={1} sx={{m: 0}}>
         <Box component="h3">Reviews</Box>
         <Stack spacing={4}>
-          {reviews.map((review, index) => {
+          {reviews !== undefined && reviews.map((review, index) => {
             return(
               <Stack key={index} spacing={0.5} sx={reviewWrapStyles}>
                 <Box component="span">{review.username}</Box>
