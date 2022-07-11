@@ -55,7 +55,8 @@ const resolvers = {
       console.log(productIsbn)
       const params = productIsbn ? { productIsbn } : {};
       console.log(params);
-      const results = await Review.findOne(params);
+      const results = await Review.find(params); 
+
       console.log(results.json);
       return results;
       
