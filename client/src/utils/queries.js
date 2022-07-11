@@ -41,3 +41,19 @@ query User($username: String!) {
 }
 `;
 
+export const REVIEW_BY_ISBN = gql `
+query ReviewsByIsbn($productIsbn: String!) {
+  reviewsByIsbn(productIsbn: $productIsbn) {
+    _id
+    productIsbn
+    productTitle
+    reviewTitle
+    userId
+    reviewText
+    rating
+    recommended
+    dateCreated
+  }
+}
+`;
+
