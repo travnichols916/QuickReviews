@@ -41,6 +41,7 @@ const resolvers = {
 
     // Product Reviews
     reviews: async (parent, { username, productIsbn }) => {
+      
       const params = username ? { username, productIsbn } : {};
       return Review.find(params).sort({ createdAt: -1 });
     },
@@ -51,8 +52,14 @@ const resolvers = {
     },
 
     reviewsByIsbn: async (parent,  { productIsbn }) => {
+      console.log(productIsbn)
       const params = productIsbn ? { productIsbn } : {};
-      return Review.find(params).sort({ createdAt: -1 })
+      console.log(params);
+      const results = await Review.findOne(params);git 
+      console.log(results.json);
+      return results;
+      
+      // .sort({ dateCreated: -1 })
       
     }
   },
