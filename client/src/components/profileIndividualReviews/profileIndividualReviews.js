@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { QUERY_ME, QUERY_ME_REVIEW, USER_QUERY } from '../../utils/queries';
-import Auth from '../../utils/auth';
-import { getSearchedBookIds } from '../../utils/localStorage';
+import React from 'react';
 
 import {
-    CssBaseline,
     Box,
-    Grid,
     Container,
-    Rating,
     Stack,
-    Tab,
     Typography,
     Divider,
     Button
@@ -20,8 +11,7 @@ import {
 
 import { styled  } from '@mui/material/styles';
 import { lightBlue } from '@mui/material/colors';
-
-import {gridSectionStyles, gridStyles, imageStyles, linkStyles} from './ProfileStyles';
+import { gridStyles } from './ProfileStyles';
 
   const BoxBackground = styled(Box)(({ theme }) => ({
     paddingTop: '2rem',

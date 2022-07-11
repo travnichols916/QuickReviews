@@ -34,11 +34,20 @@ import {gridSectionStyles, gridStyles} from './ProfileStyles';
 
 const Profile = () => {
     const { loading, error, data } = useQuery(QUERY_ME);
-    console.log(data)
+
+    console.log(data);
     const reviewsArray = data.me.reviews;
 
     console.log(reviewsArray);
 
+    if (!Auth.loggedIn) {
+      return (
+        <h4>
+          You need to be logged in to see this. Use the navigation links above to
+          sign up or log in!
+        </h4>
+      );
+    }
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -46,16 +55,7 @@ const Profile = () => {
         console.error(error);
         return <div>Error!</div>;
     }
-
-      if (!Auth.loggedIn) {
-    return (
-      <h4>
-        You need to be logged in to see this. Use the navigation links above to
-        sign up or log in!
-      </h4>
-    );
-  }
-
+    
     return (
         <>
         <BoxBackground> <CssBaseline />
