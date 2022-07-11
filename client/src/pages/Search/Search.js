@@ -107,7 +107,6 @@ const Search = () => {
 
   const handleSearchFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("Submit button searchInput: ", searchInput);
 
     if (!searchInput) {
       return false;
@@ -158,8 +157,8 @@ const Search = () => {
                   <Box
                     component="form"
                     sx={{
-                      '& .MuiTextField-root': { mt: 0.5, width: '60ch' },
-                      '& .MuiButton-root': { width: '15ch' }
+                      '& .MuiTextField-root': { mt: 0.5, width: '60ch', maxWidth: '100%' },
+                      '& .MuiButton-root': { width: '15ch', maxWidth: '100%' }
                     }}
                     onSubmit={handleSearchFormSubmit}
                     noValidate

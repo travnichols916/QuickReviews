@@ -23,7 +23,8 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { styled  } from '@mui/material/styles';
 import { getSelectBook } from '../../utils/localStorage';
 
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+// import { QUERY_ISBN } from '../../utils/queries';
 import { ADD_REVIEW } from '../../utils/mutation';
 import Auth from '../../utils/auth';
 
@@ -72,6 +73,11 @@ const Product = () => {
   const [commentValue, setCommentValue] = React.useState('');
   const [submittedValue, setSubmittedValue] = React.useState(false);
   const [productData, setProductData] = useState(getSelectBook);
+
+
+  // const { loading, isbn_data } = useQuery(QUERY_ISBN);
+  // const [dataReviews, setDataReviews] = React.useState(isbn_data)
+
 
   const [dataReviews, setDataReviews] = React.useState([
     {
@@ -142,13 +148,9 @@ const Product = () => {
 
   const handleReviewFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("Submit button titleValue: ", titleValue);
-    console.log("Submit button reviewerStarValue: ", reviewerStarValue);
-    console.log("Submit button commentValue: ", commentValue)
 
     const recommended = (reviewerRecValue === 1)
 
-    console.log("productData: ", productData);
     const reviewToSave = {
       productIsbn: productData.isbn,
       productTitle: productData.title,
@@ -169,7 +171,6 @@ const Product = () => {
       const response = await addReview({
         variables: reviewToSave
       })
-      console.log("response: ", response)
 
       setSubmittedValue(true);
     } catch (err) {
@@ -184,8 +185,8 @@ const Product = () => {
         <Box
           component="form"
           sx={{
-            '& .MuiTextField-root': { mt: 0.5, width: '60ch' },
-            '& .MuiButton-root': { width: '15ch' }
+            '& .MuiTextField-root': { mt: 0.5, width: '60ch', maxWidth: '100%' },
+            '& .MuiButton-root': { width: '15ch', maxWidth: '100%' }
           }}
           onSubmit={handleReviewFormSubmit}
           noValidate
