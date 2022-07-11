@@ -16,7 +16,7 @@ export const QUERY_ME = gql`
         userId
         reviewText
         rating
-        recommend
+        recommended
         dateCreated
       }
     }
@@ -46,7 +46,7 @@ query User($username: String!) {
       userId
       reviewText
       rating
-      recommend
+      recommended
       dateCreated
     }
   }
