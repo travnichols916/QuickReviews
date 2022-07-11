@@ -15,6 +15,7 @@ import {
   Input,
   InputLabel,
   TextField,
+  InputAdornment,
   Stack
 } from '@mui/material'
 import { styled  } from '@mui/material/styles';
@@ -23,6 +24,9 @@ import DensitySmallIcon from '@mui/icons-material/DensitySmall';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import { borderBottom, textAlign } from '@mui/system';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../../utils/mutation';
@@ -30,6 +34,13 @@ import { ADD_USER } from '../../utils/mutation';
 import Auth from '../../utils/auth';
 
 const SignupForm = () => {
+  const [values, setValues] = React.useState({
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
   const [formState, setFormState] = useState({
     username: '',
     email: '',
@@ -37,6 +48,17 @@ const SignupForm = () => {
   });
   const [addUser, { error }] = useMutation(ADD_USER);
   const [validated] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -82,7 +104,19 @@ const SignupForm = () => {
               <TextField id='username' name='username' value={formState.username} onChange={(e) => handleChange(e)} label="Username" variant="standard" required></TextField>
 
               {/* Password */}
-              <TextField id='password' name='password' value={formState.password} onChange={(e) => handleChange(e)} label="Password" variant="standard" required></TextField>
+              <TextField id='password' name='password' type={values.showPassword ? 'text' : 'password'} value={formState.password} onChange={(e) => handleChange(e)} label="Password" variant="standard" required
+              endAdornment={
+                <InputAdornment position="end">
+                <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+                >
+                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+                </InputAdornment>
+                }></TextField>
 
               {/* Submit Button */}
               <Button 

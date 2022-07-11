@@ -1,23 +1,25 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 const reviewSchema = new Schema(
     {
     productIsbn: { type: String },
-    productTitle: { type: String},
-    reviewTitle:  { type: String, },
+    productTitle: { type: String },
+    reviewTitle:  { type: String },
     reviewText:{
         type: String,
         required: true,
         maxLength: 280,
     },
     rating:{
-        type: String,
+        type: Number,
         required: true,
         minLength: 0,
         maxLength: 5,
-    },
-      recommended: {Boolean},
-      createdAt: {
+      },
+      recommended: { type: Boolean },
+      dateCreated: {
+
         type: Date,
         default: Date.now,
         get: createdAtVal => dateFormat(createdAtVal)

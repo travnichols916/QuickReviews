@@ -117,7 +117,8 @@ const resolvers = {
         if(context.user) {
           // Create Review
           const { productIsbn, productTitle, reviewTitle, reviewText, rating, recommended } = args;
-          const review = await Review.create({productIsbn, reviewTitle, reviewText, rating, recommended, username: context.user.username})
+          console.log(recommended, "recommended");
+          const review = await Review.create({productIsbn, productTitle, reviewTitle, reviewText, rating, recommended, username: context.user.username})
           console.log(review)
           // Add Review to USEr
           const updatedUser = await User.findByIdAndUpdate(
@@ -125,6 +126,12 @@ const resolvers = {
             { $push: { reviews: review  } },
             { new: true }
           );
+//           dateCreated: null
+// productIsbn: null
+// recommend: null
+// reviewText: null
+// reviewTitle: null
+// userId: null
           console.log(updatedUser)
           // Add Review to Product
           // const updateProduct = await Product.findByIdAndUpdate(

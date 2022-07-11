@@ -15,7 +15,7 @@ type User {
 type Product {
     _id: ID
     title: String
-    authors: [String]
+    authors: String
     description: String
     image: String
     link: String
@@ -24,12 +24,13 @@ type Product {
 
 type Review {
     _id: ID
-    isbn: String
+    productIsbn: String
+    productTitle: String
     reviewTitle: String
     userId: ID
     reviewText: String
     rating: Float
-    recommend: Boolean
+    recommended: Boolean
     dateCreated: String
 }
 
@@ -57,9 +58,9 @@ type Mutation {
     #  saveProduct(title: String!, image: String!, link: String!, description: String!): User
     #  removeProduct(productId: ID!): User 
 
-      addReview(productIsbn: String!, productTitle: String!, reviewTitle: String!, reviewText: String!, rating: String!, recommended: Boolean!) : User
+      addReview(productIsbn: String!, productTitle: String!, reviewTitle: String!, reviewText: String!, rating: Float!, recommended: Boolean!) : User
       updateReview(productId: ID!, reviewId: ID!): User
-      deleteReview(productId: ID!, reviewid: ID!): User
+      deleteReview(productId: ID!, reviewId: ID!): User
  }
 `;
 

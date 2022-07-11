@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { searchGoogleBooks } from '../../utils/API';
+import { getSearchedBookIds, saveSelectBook } from '../../utils/localStorage';
 
 import {
   CssBaseline,
@@ -56,62 +58,39 @@ function getLabelText(value) {
 
 const Search = () => {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState({});
-  const [userReview, setUserReview] = useState({});
   const [searchInput, setSearchInput] = useState('');
-  const [productData, setProductData] = useState({});
-  // const [commentValue, setCommentValue] = React.useState('');
+  const [productData, setProductData] = useState(getSearchedBookIds);
   const [submittedValue, setSubmittedValue] = React.useState(false);
 
-  const [dataReviews, setDataReviews] = React.useState([
-    {
-      rating: 1,
-      title: "Poke MissingNo.",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    },
-    {
-      rating: 4,
-      title: "Mouse Interests",
-      description: "Learn all about the interest of mice."
-    },
-    {
-      rating: 2,
-      title: "Introduction to Cheese",
-      description: "Flavorful book of cheese."
-    },
-    {
-      rating: 4.5,
-      title: "Fascinating Geos.",
-      description: "Rocks of all kinds."
-    }
-  ]);
+  useEffect(() => {
+  }, [productData]);
 
   const buildSearchResults = (results) => {
     return (
       <Stack spacing={1} sx={{m: 0, p: 3}}>
         <Box component="h3">Results</Box>
         <Stack spacing={4}>
-          {results.map((result, index) => {
+          {results ? results.map((result, index) => {
             return(
               <Stack key={index} spacing={0.5} sx={resultsWrapStyles}>
                   <Grid sx={gridStyles} 
                     container
                     // alignItems="center"
                   >
-                    <Grid item sx={gridStyles} xs={12} sm={4} md={3} >
-                      <LinkStyled to={'/product'}>
+                    <Grid item sx={gridStyles} xs={12} sm={4} md={3} onClick={() =>    saveSelectBook(result)}>
+                      <LinkStyled to={'/product'} >
                         <Box component="img" sx={imageStyles}
-                          src='https://via.placeholder.com/700x700'
+                          src={result.image}
                           alt=''
                         />
                       </LinkStyled>
                     </Grid>
-                    <Grid item sx={gridStyles} xs={12} sm={8} md={9}>
-                      <LinkStyled to={'/product'}>
+                    <Grid item sx={gridStyles} xs={12} sm={8} md={9} onClick={() => saveSelectBook(result)}>
+                      <LinkStyled to={'/product'} >
                         <Box component="span" sx={{fontSize: 'x-large', fontWeight: 'bold'}}>{result.title}</Box>
                       </LinkStyled>
                       <Box sx={{display: 'flex', alignItems: 'center'}}>
-                        <Rating name="half-rating-read" value={result.rating} precision={0.5} readOnly />
+                        <Rating name="half-rating-read" value={result.averageRating ? result.averageRating : 0} precision={0.5} readOnly />
                         <Box sx={{ ml: 1, alignItems: 'center' }}>{labels[result.rating]}</Box>
                       </Box>
                       <Box component="p">{result.description}</Box>
@@ -119,7 +98,8 @@ const Search = () => {
                   </Grid>
               </Stack>
               )
-          })}
+          }) : <Box>No results</Box>
+        }
         </Stack>
       </Stack>
     )
@@ -138,32 +118,19 @@ const Search = () => {
     }
 
     try {
-      // const response = await searchProducts(searchInput);
-      const response = dataReviews;
+      await searchGoogleBooks(searchInput);
+      const resultsData = localStorage.getItem('resultsData')
+      ? JSON.parse(localStorage.getItem('resultsData'))
+      : [];
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      console.log("resultsData submit:", resultsData)
 
-      const { items } = await response.json();
-
-      const resultsData = items.map((product) => ({
-        bookId: product.id,
-        authors: product.volumeInfo.authors || ['No author to display'],
-        title: product.volumeInfo.title,
-        description: product.volumeInfo.description,
-        image: product.volumeInfo.imageLinks?.thumbnail || '',
-      }));
-
-      setDataReviews(resultsData);
+      setProductData(resultsData);
       setSearchInput('');
     } catch (err) {
       console.error(err);
     }
   }
-
-  // useEffect(() => {
-  // }, [productData])
 
   return (
     <BoxBackground>
@@ -223,7 +190,7 @@ const Search = () => {
               alignItems="center"
             >
               <Box sx={{ width: '100%', typography: 'body1' }}>
-                {buildSearchResults(dataReviews)}
+                {buildSearchResults(productData)}
               </Box>
             </Grid>
           </Grid>

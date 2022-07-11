@@ -6,6 +6,19 @@ export const QUERY_ME = gql`
       _id
       username
       email
+      productCount
+      savedProducts
+      reviews{
+        _id
+        productIsbn
+        reviewFormTitle
+        password
+        userId
+        reviewText
+        rating
+        recommended
+        dateCreated
+      }
     }
   }
 `;
@@ -18,16 +31,25 @@ query User($username: String!) {
     email
     password
     productCount
-    review {
+    savedProducts{
+      _id
+      title
+      authors
+      description
+      image
+      link
+    }
+    reviews {
       _id
       productIsbn
-      reviewTitle
+      reviewFormTitle
       userId
       reviewText
       rating
-      recommend
+      recommended
       dateCreated
     }
   }
-}`
+}
+`;
 

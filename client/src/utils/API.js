@@ -1,59 +1,38 @@
-// route to get logged in user's info (needs the token)
-export const getMe = (token) => {
-  return fetch('/api/users/me', {
-    headers: {
-      'Content-Type': 'application/json',
-      authorization: `Bearer ${token}`,
-    },
-  });
-};
-
-export const createUser = (userData) => {
-  return fetch('/api/users', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
-};
-
-export const loginUser = (userData) => {
-  return fetch('/api/users/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
-};
-
-// save book data for a logged in user
-export const saveBook = (bookData, token) => {
-  return fetch('/api/users', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(bookData),
-  });
-};
-
-// remove saved book data for a logged in user
-export const deleteBook = (bookId, token) => {
-  return fetch(`/api/users/books/${bookId}`, {
-    method: 'DELETE',
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-};
-
 // make a search to google books api
-// https://www.googleapis.com/books/v1/volumes?q=harry+potter
-export const searchGoogleBooks = (query) => {
-  return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
-};
 
-// https://www.googleapis.com/books/v1/volumes?q=isbn:0735619670
+import { saveBookIds } from "./localStorage";
+
+// https://www.googleapis.com/books/v1/volumes?q=harry+potter
+export const searchGoogleBooks = async (query) => {
+  await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then((data) => {
+      console.log("items: ", data)
+      const resultsData = data.items.map((product) => {
+      const { id, volumeInfo } = product;
+      const { authors, title, description, averageRating, imageLinks, industryIdentifiers } = volumeInfo;
+      let isbn = "";
+      if (industryIdentifiers[0].type == 'OTHER') {
+        isbn = '';
+      }
+      else if(industryIdentifiers.length > 0) {
+        isbn = industryIdentifiers.filter(industryIdentifier => industryIdentifier.type === "ISBN_13")[0].identifier
+      }
+
+      return {
+        bookId: id,
+        authors: authors || ['No author to display'],
+        title: title,
+        description: description,
+        averageRating: averageRating,
+        image: imageLinks?.thumbnail || '',
+        isbn: isbn
+      }
+    });
+
+    console.log("resultsData", resultsData)
+    saveBookIds(resultsData);
+    })
+};

@@ -58,9 +58,20 @@ mutation RemoveProduct($productId: ID!) {
 `
 // Add Review
 export const  ADD_REVIEW = gql `
-mutation AddReview($productIsbn: String!, $productTitle: String!, $reviewTitle: String!, $reviewText: String!, $rating: String!, $recommended: Boolean!) {
+mutation AddReview($productIsbn: String!, $productTitle: String!, $reviewTitle: String!, $reviewText: String!, $rating: Float!, $recommended: Boolean!) {
   addReview(productIsbn: $productIsbn, productTitle: $productTitle, reviewTitle: $reviewTitle, reviewText: $reviewText, rating: $rating, recommended: $recommended) {
     username
+    reviews {
+      _id
+      productIsbn
+      productTitle
+      reviewTitle
+      userId
+      reviewText
+      rating
+      recommended
+      dateCreated
+    }
   }
 }
 `
