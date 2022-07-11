@@ -169,10 +169,7 @@ const Product = () => {
       const response = await addReview({
         variables: reviewToSave
       })
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      console.log("response: ", response)
 
       setSubmittedValue(true);
     } catch (err) {
