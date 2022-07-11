@@ -50,9 +50,9 @@ const resolvers = {
       // .populate(reviews);
     },
 
-    reviewsByIsbn: async (parent,  { isbn }) => {
-      const params = isbn ? { isbn } : {};
-      return review.find(params).sort({ createdAt: -1 })
+    reviewsByIsbn: async (parent,  { productIsbn }) => {
+      const params = productIsbn ? { productIsbn } : {};
+      return Review.find(params).sort({ createdAt: -1 })
       
     }
   },
