@@ -9,7 +9,7 @@ const productSchema = new Schema(
     required: true,
   },
   // saved api id 
-  isbn: {
+  productIsbn: {
     type: String,
     required: true,
   },
