@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const reviewSchema = new Schema(
     {
     productIsbn: { type: String },
-    productTitle: { type: String},
+    productTitle: { type: String },
     reviewTitle:  { type: String },
     reviewText:{
         type: String,
