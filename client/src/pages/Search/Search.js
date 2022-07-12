@@ -122,7 +122,7 @@ const Search = () => {
       ? JSON.parse(localStorage.getItem('resultsData'))
       : [];
 
-      console.log("resultsData submit:", resultsData)
+      // console.log("resultsData submit:", resultsData)
 
       setProductData(resultsData);
       setSearchInput('');
