@@ -6,6 +6,7 @@ import {
   AppBar,
   Button,
   Grid,
+  Box,
   TextField,
   Typography,
   Collapse,
@@ -182,12 +183,12 @@ const AppNavbar = () => {
         justifyItems='center'
         >
           <Typography variant="h5" component="div" sx={{ flexGrow: 1, textAlign: 'center', }}>
-            <Link href='/'
+            <Box
             sx={linkStyles}>
               <ThemeProvider theme={theme}>
                 <Thumbnail />
               </ThemeProvider>
-            </Link>
+            </Box>
           </Typography>
         </Grid>
           
