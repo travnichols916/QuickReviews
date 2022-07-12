@@ -72,7 +72,7 @@ const Home = () => {
                   <Box component="h2" sx={{textAlign: 'center'}}>About</Box>
                 </Grid>
                 <Grid item sx={gridStyles} xs={12} >
-                  <Box component="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  <Box component="p">Our mission is to provide as many honest reviews as possible. Many websites who own products attempts to hide negative reviews. So we want to build trust with our community by keeping every review.
                   </Box>
                 </Grid>
               </Stack>
