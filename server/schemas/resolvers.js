@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const  User = require("../models/User");
-const  Product = require("../models/Product");
+// const  Product = require("../models/Product");
 const  Review = require("../models/Review");
 
 const { signToken } = require("../utils/auth");
@@ -52,16 +52,10 @@ const resolvers = {
     },
 
     reviewsByIsbn: async (parent,  { productIsbn }) => {
-      console.log(productIsbn)
       const params = productIsbn ? { productIsbn } : {};
-      console.log(params);
-      const results = await Review.find(params); 
+      const results = await Review.find(params).sort({ dateCreated: -1 }); 
 
-      console.log(results.json);
-      return results;
-      
-      // .sort({ dateCreated: -1 })
-      
+      return results; 
     }
   },
 
